@@ -1,4 +1,4 @@
-Plantilla Angular Taller Base de Datos
+Front End Web - Aplicacion Eventos Usach
 =================
 
 Requerimientos
@@ -6,6 +6,7 @@ Requerimientos
 
 * Node JS y NPM [descarga](https://nodejs.org/en/download/) o por [gestor de paquetes](https://nodejs.org/en/download/package-manager/)
 * Gulp `$ npm install --global gulp`
+
 
 Instalación
 -----------
