@@ -17,7 +17,10 @@
     "angular": "~1.4.7",
     "bootstrap": "3.0.0",
     "angular-route": "~1.4.7",
-    "angular-resource": "~1.4.7"
+    "angular-resource": "~1.4.7",
+    "dropotron": "~1.4.3",
+    "scrollgress": "1.0.0"
+
   },
   "overrides": {
     "bootstrap": {
