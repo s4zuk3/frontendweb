@@ -1,12 +1,5 @@
-Front End Web - Aplicacion Eventos Usach
+Front End Web - Aplicación Eventos Usach
 =================
-
-Requerimientos
---------------
-
-* Node JS y NPM [descarga](https://nodejs.org/en/download/) o por [gestor de paquetes](https://nodejs.org/en/download/package-manager/)
-* Gulp `$ npm install --global gulp`
-
 
 Instalación
 -----------
@@ -16,3 +9,5 @@ Una vez clonada la carpeta, REALIZAR ESTOS COMANDOS DENTRO DE LA CARPETA:
 * Descargar dependencias de Bower: `$ gulp bower`
 * Iniciar servidor de desarrollo: `$ gulp serve`
 
+Notas:
+* Recordar tener arriba el servidor glassfish con el WAR correspondiente a la app.
