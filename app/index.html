@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html ng-app="angularSpa">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AngularSpa</title>
+  <!-- Recursos de bower-->
+  <!-- build:css css/vendor.css -->   
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- Estilos personalizados-->
+  <!-- build:css css/main.css -->  
+  <!-- inject:css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endinject -->
+  <!-- endbuild -->
+<body>
+<nav class="navbar navbar-default">
+  <ul class="nav navbar-nav navbar-right">
+    <li><a href="#/listar">Listar</a></li>
+    <li><a href="#/newActor">Agregar</a></li>
+  </ul>
+</nav>
+<div class="container">
+    <img class="logo" src="images/angular.png" alt="logo">
+    <h1>Actors CRUD</h1>    
+    <div ng-view=""></div>
+</div>
+  <!-- Recursos de bower-->
+  <!-- build:js js/vendor.js --> 
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- Recursos personales-->
+  <!-- build:js js/scripts.js -->   
+  <!-- inject:js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/servicios.js"></script>
+  <script src="scripts/controllers/actorsCtrl.js"></script>
+  <!-- endinject -->
+  <!-- endbuild -->
+</body>
+</html>
