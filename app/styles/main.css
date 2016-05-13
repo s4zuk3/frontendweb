@@ -800,10 +800,15 @@
 	}
 
 /* Footer */
-
+	#oLine {
+		background:#F18B29;
+		padding: 0.5em 0 0 0;
+		text-align: center;
+	}
 	#footer {
-		background: #f0f0f0;
-		padding: 4em 0 6em 0;
+/*		background: #f0f0f0;*/
+		background: #1b65bc;
+		padding: 1em 0 2em 0;
 		text-align: center;
 	}
 
@@ -820,7 +825,7 @@
 			}
 
 		#footer .copyright {
-			color: #999;
+			color: #ddd;
 			font-size: 0.9em;
 			line-height: 1em;
 			margin: 2em 0 0 0;
@@ -912,4 +917,26 @@
 			color: rgba(255, 255, 255, 0.75) !important;
 		}
 
+/* EventosUsach */
+		.md-toolbar-tools{
+			background-color:#1b65bc;
+		}
 
+		.md-toolbar-tools md-button md-icon{
+			color:#999999;
+		}
+
+		.md-toolbar-tools md-button md-icon:hover{
+			color:#373737;
+		}
+
+		.md-toolbar-tools h2{
+			color:#D1D1D1;
+		}
+		
+		.face {
+			border-radius: 30px;
+			border: 1px solid #ddd;
+			width: 33px;
+			margin: 16px;
+		}

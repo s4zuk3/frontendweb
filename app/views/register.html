@@ -1,0 +1,39 @@
+<md-dialog ng-cloak>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 style="color:#DDDDDD">Registrar nuevo usuario</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<div class="md-dialog-content">
+			<form ng-submit="$event.preventDefault()" name="searchForm">
+				<p>Por favor ingrese sus datos para registrarse en Eventos Usach.</p>
+				<md-input-container flex class="md-block">
+					<label>Nombre</label>
+					<input ng-model="nombre" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Apellido</label>
+					<input ng-model="apellido" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Correo</label>
+					<input ng-model="correo" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Contraseña</label>
+					<input ng-model="password" type="password" required>
+				</md-input-container>
+			</form>
+		</div>
+	<md-dialog-actions layout="row">
+		<span flex></span>
+		<md-button ng-click="answer()">
+			Registrar
+		</md-button>
+	</md-dialog-actions>
+</md-dialog>

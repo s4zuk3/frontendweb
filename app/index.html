@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app="angularSpa">
+<html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,80 +9,42 @@
   <!-- build:css css/vendor.css -->   
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- Estilos personalizados-->
   <!-- build:css css/main.css -->  
   <!-- inject:css -->
-  <link rel="stylesheet" href="styles/1main.css">
+  <link rel="stylesheet" href="styles/angular-material.css">
+  <link rel="stylesheet" href="styles/font-awesome.min.css">
   <link rel="stylesheet" href="styles/main.css">
   <!-- endinject -->
   <!-- endbuild -->
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-NfZYvTZcPfnNewL-sU5B9OmRaFCJa1I"></script>
 </head>
-<body>
-
-  <div id="page-wrapper">
-
-      <!-- Header -->
-        <header id="header">
-          <h1><a href="index.html">Eventos Usach</a></h1>
-          <nav id="nav">
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              
-              <li><a href="#" class="button">Ingresar</a>
-              <li><a href="#" class="button">Registrarse</a></li>
-            </ul>
-          </nav>
-        </header>
-
-<!-- Main -->
-        <section id="main" class="container">
-          <header>
-            <h2>Generic</h2>
-            <p>Plantilla solo test.</p>
-          </header>
-          <div class="box">
-            <h3>This is a subheading</h3>
-            <p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
-            <div class="row">
-              <div class="6u 12u(mobilep)">
-                <h3>And now a subheading</h3>
-                <p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-              </div>
-              <div class="6u 12u(mobilep)">
-                <h3>And another subheading</h3>
-                <p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Footer -->
-        <footer id="footer">
-          <ul class="icons">
-            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-          </ul>
-          <ul class="copyright">
-            <li>&copy; Eventos Usach. All rights reserved.</li><li>Plantilla base</li>
-          </ul>
-        </footer>
-
-
-
-  </div>
-
-  <!-- Recursos de bower-->
-  <!-- build:js js/vendor.js --> 
-  <!-- bower:js -->
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <!-- endbower -->
+<body ng-app="EventosUsach">
+<div ng-view ng-cloak></div>
+<!-- Footer -->
+<div id="oLine"></div>
+<footer id="footer">
+	<ul class="copyright">
+		<li>&copy; Eventos Usach. All rights reserved.</li><li>Plantilla base</li>
+	</ul>
+</footer>
+<!-- Recursos de bower-->
+<!-- build:js js/vendor.js --> 
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<!-- endbower -->
   <!-- endbuild -->
 
   <!-- Recursos personales-->
@@ -90,7 +52,9 @@
   <!-- inject:js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/servicios.js"></script>
-  <script src="scripts/controllers/actorsCtrl.js"></script>
+  <script src="scripts/controllers/eventosCtrl.js"></script>
+  <script src="scripts/controllers/headerCtrl.js"></script>
+  <script src="scripts/controllers/homeCtrl.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
 </body>
