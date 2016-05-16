@@ -1,35 +1,63 @@
+<script>
+var map=new google.maps.Map(document.getElementById("googleMap"),{
+	center:{lat:-33.450242, lng:-70.686313},
+  zoom:19,
+  zoomControl: false,
+  rotateControl: false,
+  mapTypeId:google.maps.MapTypeId.SATELLITE
+});
+var markers=[];
+var infowindows=[];
+</script>
+
 <md-content>
 <!-- Header -->
-<md-toolbar>
+<md-toolbar ng-controller="headerController">
 	<div class="md-toolbar-tools">
+		<h2>Eventos Usach</h2>
 		<span flex=""></span>
-		<md-button class="md-icon-button" aria-label="Ingresar">
-			<md-icon class="glyphicon glyphicon-user" aria-hidden="true"></md-icon>
+		<md-button class="md-secondary" aria-label="Home" ng-click="home()">
+			<span class="glyphicon glyphicon-user"></span>
+			Nombre Usuario
+		</md-button>
+		<md-button class="md-icon-button" aria-label="Settings" ng-click="settings($)">
+			<span class="glyphicon glyphicon-wrench"></span>
+		</md-button>
+		<md-button class="md-icon-button" aria-label="Logout" ng-click="logout($)">
+			<span class="glyphicon glyphicon-log-out"></span>
+		</md-button>
+	</div>
+	<div class="md-toolbar-tools" style="height:24px;background:#FFF;">
+		<span flex=""></span>
+		<md-button class="md-raised" aria-label="Nuevo Evento" ng-click="nuevo()">
+			<span class="glyphicon glyphicon-plus-sign"></span>
+			Nuevo Evento
+		</md-button>
+		<md-button class="md-raised" aria-label="Mis Suscripciones" ng-click="suscripciones()">
+			<span class="glyphicon glyphicon-list-alt"></span>
+			Mis Suscripciones
 		</md-button>
 	</div>
 </md-toolbar>
 
 <!-- Main -->
 <section id="main" class="container">
-	<header>
-		<h2>Generic</h2>
-		<p>Plantilla solo test.</p>
-	</header>
-	<div class="box">
-		<h3>This is a subheading</h3>
-		<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
-		<div class="row">
-			<div class="6u 12u(mobilep)">
-				<h3>And now a subheading</h3>
-				<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-			</div>
-			<div class="6u 12u(mobilep)">
-				<h3>And another subheading</h3>
-				<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-			</div>
-		</div>
+	<div id="" style="float:left;width:600px;padding-left:0em;">
+		<md-content ng-controller="EventosController">
+			<md-list ng-init="fetch()">
+				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
+					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.titulo}}">
+					<div class="md-list-item-text">
+						<h3>{{evento.titulo}}</h3>
+						<p>{{evento.descripcion}}</p>
+					</div>
+					<md-button class="md-secondary" ng-click="addMarker(evento.lat,evento.lng);details(evento.id)">Ver</md-button>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</md-list>
+		</md-content>
 	</div>
+	<div id="googleMap" style="width:500px;height:380px;margin:auto;float:left;"></div>
 </section>
 
-        
 </md-content>

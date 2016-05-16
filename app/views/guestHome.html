@@ -11,11 +11,14 @@ var markers=[];
 
 <md-content>
 <!-- Header -->
-<md-toolbar>
-	<div class="md-toolbar-tools" ng-controller="headerController">
+<md-toolbar ng-controller="headerController">
+	<div class="md-toolbar-tools">
 		<h2>Eventos Usach</h2>
 		<span flex=""></span>
-		<span class="glyphicon glyphicon-user"></span>
+		<md-button class="md-secondary" aria-label="Home" ng-click="home()">
+			<span class="glyphicon glyphicon-user"></span>
+			Invitado
+		</md-button>
 		<md-button class="md-raised" aria-label="Registrarse" ng-click="showRegister($event)">
 			Registrarse
 		</md-button>
@@ -23,15 +26,18 @@ var markers=[];
 			Iniciar Sesión
 		</md-button>
 	</div>
+	<div class="md-toolbar-tools" style="height:24px;background:#FFF;">
+		<span flex=""></span>
+	</div>
 </md-toolbar>
 
 <!-- Main -->
 <section id="main" class="container">
 	<div id="" style="float:left;width:600px;padding-left:0em;">
 		<md-content ng-controller="EventosController">
-			<md-list>
+			<md-list ng-init="fetch()">
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
-					<img ng-src="{{evento.foto}}?{{$index}}" class="face" alt="{{evento.titulo}}">
+					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.titulo}}">
 					<div class="md-list-item-text">
 						<h3>{{evento.titulo}}</h3>
 						<p>{{evento.descripcion}}</p>

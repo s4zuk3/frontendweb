@@ -1,4 +1,4 @@
-<md-dialog ng-cloak>
+<md-dialog ng-cloak ng-controller="LogController">
 	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<h2 style="color:#DDDDDD">Registrar nuevo usuario</h2>
@@ -10,23 +10,27 @@
 	</md-toolbar>
 	<md-dialog-content>
 		<div class="md-dialog-content">
-			<form ng-submit="$event.preventDefault()" name="searchForm">
+			<form name="searchForm">
 				<p>Por favor ingrese sus datos para registrarse en Eventos Usach.</p>
 				<md-input-container flex class="md-block">
 					<label>Nombre</label>
-					<input ng-model="nombre" required>
+					<input ng-model="user.nombre" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Apellido</label>
-					<input ng-model="apellido" required>
+					<input ng-model="user.apellido" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Correo</label>
-					<input ng-model="correo" required>
+					<input ng-model="user.correo" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Contraseña</label>
-					<input ng-model="password" type="password" required>
+					<input ng-model="user.password" type="password" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Carrera</label>
+					<input ng-model="user.carrera" required>
 				</md-input-container>
 			</form>
 		</div>
