@@ -1,0 +1,27 @@
+[
+	{
+		"foto" : "Concierto",
+		"titulo" : "Concierto Aula Magna",
+		"descripcion": "Concierto de Orquesta Usach junto a Dania Montanares",
+		"lat":-33.449942,
+		"lng":-70.686613
+	}, {
+		"foto" : "Asamblea",
+		"titulo" : "Asamblea Diinf",
+		"descripcion": "Asamblea triestamental Departamento Ingeniería Informática",
+		"lat":-33.449742,
+		"lng":-70.687213
+	}, {
+		"foto" : "Simposio",
+		"titulo" : "Simposio Dr Mauricio Marín",
+		"descripcion": "Simposio sobre gestión de proyectos de ingenieria de software",
+		"lat":-33.450082,
+		"lng":-70.685113
+	}, {
+		"foto" : "Simposio",
+		"titulo" : "Charla BDs no relacionales",
+		"descripcion": "Charla sobre el uso de bases de datos no relacionales",
+		"lat":-33.446334,
+		"lng":-70.683219
+	}
+]
