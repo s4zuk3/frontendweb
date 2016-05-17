@@ -1,7 +1,8 @@
 EventosUsach.controller('EventosController', function($scope,$http,$templateCache,$window) {
 	$scope.eventos = null;
 	$scope.fetch = function(){
-		$http({method: 'GET', url: 'http://localhost/frontendweb/app/scripts/eventosTest.json', cache: $templateCache}).
+		//$http({method: 'GET', url: 'http://localhost/frontendweb/app/scripts/eventosTest.json', cache: $templateCache}).
+		$http({method: 'GET', url: 'http://localhost:9000/scripts/eventosTest.json', cache: $templateCache}).
 			then(function(response) {
 			$scope.eventos = response.data;
 			i=0;

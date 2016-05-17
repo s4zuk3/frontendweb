@@ -2,12 +2,26 @@ var EventosUsach = angular.module('EventosUsach', ["ngRoute","ngMessages","ngMat
 EventosUsach.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 	when('/', {
+		resolve: {
+			"check": function($location,$rootScope){
+				if( $rootScope.auth.isLoggedIn()){
+					$location.path('/user');
+				}
+			}	
+		},
 		 templateUrl: 'views/guestHome.html',
 		 controller: 'GuestController'
 	}).
 	when('/user', {
-		 templateUrl: 'views/userHome.html',
-		 controller: 'UserController'
+		resolve: {
+			"check": function($location,$rootScope){
+				if(!$rootScope.auth.isLoggedIn()){
+					$location.path('/');
+				}
+			}	
+		},
+		templateUrl: 'views/userHome.html',
+		controller: 'UserController'
 	}).
 	when('/registrar', {
 		templateUrl: 'views/adminHome.html',

@@ -18,7 +18,7 @@ var infowindows=[];
 		<span flex=""></span>
 		<md-button class="md-secondary" aria-label="Home" ng-click="home()">
 			<span class="glyphicon glyphicon-user"></span>
-			Nombre Usuario
+			{{ session.getUser() }}
 		</md-button>
 		<md-button class="md-icon-button" aria-label="Settings" ng-click="settings($)">
 			<span class="glyphicon glyphicon-wrench"></span>

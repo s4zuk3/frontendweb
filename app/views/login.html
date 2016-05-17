@@ -14,17 +14,17 @@
 				<p>Por favor ingrese sus datos.</p>
 				<md-input-container flex class="md-block">
 					<label>Correo</label>
-					<input ng-model="correo" required>
+					<input ng-model="credentials.user" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Contraseña</label>
-					<input ng-model="password" type="password" required>
+					<input ng-model="credentials.password" type="password" required>
 				</md-input-container>
 			</form>
 		</div>
 	<md-dialog-actions layout="row">
 		<span flex></span>
-		<md-button type="submit" ng-click="answer()">
+		<md-button type="submit" ng-click="answer(credentials)">
 			Ingresar
 		</md-button>
 	</md-dialog-actions>

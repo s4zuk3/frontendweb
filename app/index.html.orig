@@ -52,9 +52,15 @@
   <!-- inject:js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/servicios.js"></script>
+  <script src="scripts/controllers/actorsCtrl.js"></script>
   <script src="scripts/controllers/eventosCtrl.js"></script>
   <script src="scripts/controllers/headerCtrl.js"></script>
   <script src="scripts/controllers/homeCtrl.js"></script>
+<<<<<<< HEAD
+  <script src="scripts/controllers/test_loginCtrl.js"></script>
+=======
+  <script src="scripts/controllers/logCtrl.js"></script>
+>>>>>>> 0b37d9d57f30840eb4fc59aacf0708e9fea9a286
   <!-- endinject -->
   <!-- endbuild -->
 </body>
