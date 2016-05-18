@@ -36,17 +36,19 @@ EventosUsach.service('auth',['$http', 'session', '$location',
       return session.isAdmin();
     };
     this.logIn = function(credentials,answer,$mdDialog){
+      credentials.id = 7;
+      var url = "http://localhost:8080/EventoUsachJava/usuarios/"+credentials.id;
       return $http
-      	.get('http://localhost:9000/user_sample.json') //dato dummy mientras no hay db.
+        .get(url)
       	.then(function(response){
       		var data = response.data;
-      		if(data.correo_usuario == credentials.user && data.contrasenha_usuario == credentials.password){
+      		if(data.correoUsuario == credentials.user && data.contrasenhaUsuario == credentials.password){
       			// Credenciales correctas
             credentials.error = false;
-            session.setUser(data.correo_usuario);
+            session.setUser(data.correoUsuario);
             $mdDialog.hide(answer);
-            if( data.esAdministrador ){
-              session.setAdmin(data.correo_usuario);
+            if( data.administrador ){
+              session.setAdmin(data.correoUsuario);
             }
             $location.path('/user'); // Coloque un boton en la vista user en vez de tirar directo a /admin
       		}
