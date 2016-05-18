@@ -1,4 +1,4 @@
-<md-dialog ng-cloak ng-controller="LogController">
+<md-dialog ng-cloak>
 	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<h2 style="color:#DDDDDD">Registrar nuevo usuario</h2>
@@ -14,29 +14,41 @@
 				<p>Por favor ingrese sus datos para registrarse en Eventos Usach.</p>
 				<md-input-container flex class="md-block">
 					<label>Nombre</label>
-					<input ng-model="user.nombre" required>
-				</md-input-container>
-				<md-input-container flex class="md-block">
-					<label>Apellido</label>
-					<input ng-model="user.apellido" required>
+					<input ng-model="newuser.user" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Correo</label>
-					<input ng-model="user.correo" required>
-				</md-input-container>
-				<md-input-container flex class="md-block">
-					<label>Contraseña</label>
-					<input ng-model="user.password" type="password" required>
+					<input ng-model="newuser.correo" type="email" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Carrera</label>
-					<input ng-model="user.carrera" required>
+					<input ng-model="newuser.carrera" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Contraseña</label>
+					<input ng-model="newuser.password" type="password" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Repetir Contraseña</label>
+					<input ng-model="newuser.repassword" type="password" required>
 				</md-input-container>
 			</form>
+			<div class="alert alert-danger" role="alert" ng-show="newuser.error">
+				<span class="glyphicon glyphicon-exclamation-sign"></span>
+  				Complete todos los campos
+			</div>
+			<div class="alert alert-danger" role="alert" ng-show="newuser.email_error">
+				<span class="glyphicon glyphicon-exclamation-sign"></span>
+  				Ingrese un Correo válido
+			</div>
+			<div class="alert alert-danger" role="alert" ng-show="newuser.notmatch">
+				<span class="glyphicon glyphicon-remove-sign"></span>
+  				Las password no coinciden
+			</div>
 		</div>
 	<md-dialog-actions layout="row">
 		<span flex></span>
-		<md-button ng-click="answer()">
+		<md-button ng-click="answer(newuser)">
 			Registrar
 		</md-button>
 	</md-dialog-actions>
