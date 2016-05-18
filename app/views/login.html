@@ -16,12 +16,18 @@
 					<label>Correo</label>
 					<input ng-model="credentials.user" required>
 				</md-input-container>
-				<md-input-container flex class="md-block">
+				<md-input-container flex class="md-block" >
 					<label>Contraseña</label>
 					<input ng-model="credentials.password" type="password" required>
 				</md-input-container>
 			</form>
+		<div class="alert alert-danger" role="alert" ng-show="credentials.error">
+			<span class="glyphicon glyphicon-exclamation-sign"></span>
+  			Credenciales Inválidas
 		</div>
+		</div>
+		
+
 	<md-dialog-actions layout="row">
 		<span flex></span>
 		<md-button type="submit" ng-click="answer(credentials)">

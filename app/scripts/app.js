@@ -23,7 +23,20 @@ EventosUsach.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'views/userHome.html',
 		controller: 'UserController'
 	}).
-	when('/registrar', {
+	when('/admin', {
+		resolve: {
+			"check": function($location,$rootScope){
+				if(!$rootScope.auth.isLoggedIn()){ // Si no esta logeado goHome
+					$location.path('/');
+				}
+				else // si esta logeado ver si es admin
+				{
+					if(!$rootScope.auth.isAdmin()){
+						$location.path('/user');
+					} 
+				}
+			}	
+		},
 		templateUrl: 'views/adminHome.html',
 		controller: 'AdminController'
 	}).

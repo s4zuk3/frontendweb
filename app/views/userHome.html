@@ -37,6 +37,12 @@ var infowindows=[];
 			<span class="glyphicon glyphicon-list-alt"></span>
 			Mis Suscripciones
 		</md-button>
+		<md-button ng-if="auth.isAdmin()" class="md-raised" aria-label="Administracion" ng-click="Administrar()">
+			<span class="glyphicon glyphicon-cog"></span>
+			Administración
+		</md-button>
+		
+	
 	</div>
 </md-toolbar>
 

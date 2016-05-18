@@ -1,7 +1,12 @@
 
 	{
-		"user":"mail@usach.cl",
-		"pass":"mail"
+		"id_usuario":"1",
+		"nombre_usuario":"Francisco",
+		"correo_usuario":"admin",
+		"carrera_usuario":"Ingenieria de ejecucion en computacion e informatica",
+		"contrasenha_usuario":"admin",
+		"estado":1,
+		"esAdministrador":true
 	}
 
 

@@ -23,8 +23,7 @@ EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialo
 	$scope.showLogin = function(ev) {
 		var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 		$mdDialog.show({
-			//controller: DialogController,
-			controller: loginCtrl2,
+			controller: loginCtrl,
 			templateUrl: 'views/login.html',
 			parent: angular.element(document.body),
 			targetEvent: ev,
@@ -57,7 +56,8 @@ function DialogController($scope, $mdDialog) {
     $mdDialog.hide(answer);
   };
 }
-function loginCtrl2($scope, $location, $rootScope,$mdDialog) {
+function loginCtrl($scope, $location, $rootScope,$mdDialog) {
+  $scope.credentials = {};
   $scope.hide = function() {
     $mdDialog.hide();
   };
@@ -65,7 +65,10 @@ function loginCtrl2($scope, $location, $rootScope,$mdDialog) {
     $mdDialog.cancel();
   };
   $scope.answer = function(answer,credentials){
-  	$rootScope.auth.logIn($scope.credentials,answer,$mdDialog);
- 	
+  	if( !angular.isUndefined($scope.credentials.user) && !angular.isUndefined($scope.credentials.password) )
+  		$rootScope.auth.logIn($scope.credentials,answer,$mdDialog);
+  	else{
+  		$scope.credentials.error = true;
+  	}
   };
 }
