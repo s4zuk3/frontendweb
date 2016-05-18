@@ -43,6 +43,9 @@ EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialo
 		$rootScope.session.destroy();
 		$location.path('/');
 	};
+	$scope.Administrar = function(){
+		$location.path('/admin');
+	};
 })
 
 function DialogController($scope, $mdDialog) {

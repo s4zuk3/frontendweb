@@ -1,5 +1,5 @@
-EventosUsach.service('session',['$log', '$window','$rootScope',
-  function($log, $window, $rootScope) {
+EventosUsach.service('session',['$log', '$window',
+  function($log, $window) {
   		 this._user = JSON.parse($window.localStorage.getItem('session.user'));
        this._admin = JSON.parse($window.localStorage.getItem('session.admin'));
       this.getUser = function(){
@@ -27,8 +27,8 @@ EventosUsach.service('session',['$log', '$window','$rootScope',
     	};
  }]);
 
-EventosUsach.service('auth',['$http', 'session', '$location','$rootScope', 
-  function($http, session,$location,$rootScope) {
+EventosUsach.service('auth',['$http', 'session', '$location', 
+  function($http, session,$location) {
     this.isLoggedIn = function isLoggedIn(){
       return session.getUser() !== null;
     };
