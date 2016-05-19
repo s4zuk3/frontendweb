@@ -1,20 +1,37 @@
 EventosUsach.controller('EventosController', function($scope,$http,$templateCache,$window) {
 	$scope.eventos = null;
 	$scope.fetch = function(){
-		//$http({method: 'GET', url: 'http://localhost/frontendweb/app/scripts/eventosTest.json', cache: $templateCache}).
-		$http({method: 'GET', url: 'http://localhost:9000/scripts/eventosTest.json', cache: $templateCache}).
-			then(function(response) {
+		$http
+		.get('http://localhost:8080/EventoUsachJava/lugares')
+		.then(function(response){
+			var data_lugares = response.data;
+			$http({method: 'GET', url: 'http://localhost:8080/EventoUsachJava/eventos', cache: $templateCache})
+			.then(function(response) {
 			$scope.eventos = response.data;
 			i=0;
-			for(evento in $scope.eventos){
+			for(evento in $scope.eventos){ //recopio valores para no modificar el template
+				$scope.eventos[i].foto = "Concierto"; // Dummy, no existe "foto" en la DB.
+				$scope.eventos[i].lat= data_lugares[$scope.eventos[i].idLugar].latitud;
+				$scope.eventos[i].lng = data_lugares[$scope.eventos[i].idLugar].longitud;
+				$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
+				$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
+				$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
 				$scope.eventos[evento].id=i++;
 			}
-		}, function(response) {
+			}, function(response) {
 			$scope.eventos = response.data || "Request failed";
 			i=0;
 			for(evento in $scope.eventos){
+				$scope.eventos[i].foto = "Concierto"; // Dummy, no existe "foto" en la DB.
+				$scope.eventos[i].latitud = data_lugares[$scope.eventos[i].idLugar].latitud;
+				$scope.eventos[i].longitud = data_lugares[$scope.eventos[i].idLugar].longitud;
+				$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
+				$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
+				$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
 				$scope.eventos[evento].id=i++;
 			}
+
+		});
 		});
 	}
 
