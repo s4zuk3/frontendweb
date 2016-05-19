@@ -48,7 +48,7 @@ EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialo
 	};
 })
 
-function registerController($scope, $mdDialog) {
+function registerController($scope,$rootScope,$mdDialog) {
   $scope.newuser = {};
   $scope.hide = function() {
     $mdDialog.hide();
@@ -57,27 +57,44 @@ function registerController($scope, $mdDialog) {
     $mdDialog.cancel();
   };
   $scope.answer = function(answer,newuser) { //validaciones del form, nose hacerlo otra forma xD
-  	if(	!angular.isUndefined($scope.newuser.user) && !angular.isUndefined($scope.newuser.correo) &&	!angular.isUndefined($scope.newuser.carrera) && !angular.isUndefined($scope.newuser.password) && !angular.isUndefined($scope.newuser.repassword)){
-  		$scope.newuser.error = false;
-  		$scope.newuser.email_error = false;
-  		if( $scope.newuser.password == $scope.newuser.repassword  ){
-  				$scope.newuser.notmatch = false;
-  				$mdDialog.hide(answer);
-  		}else{
-  				$scope.newuser.notmatch = true;
-  		}
-  	}else{
-  		if(	!angular.isUndefined($scope.newuser.user) && angular.isUndefined($scope.newuser.correo) &&	!angular.isUndefined($scope.newuser.carrera) && !angular.isUndefined($scope.newuser.password) && !angular.isUndefined($scope.newuser.repassword)){
-  			$scope.newuser.error = false;
-  			$scope.newuser.email_error = true;	
-  		}else{
-  			$scope.newuser.error = true;
-  		}
+  	$scope.newuser.error = false;
+  	$scope.newuser.email_error = false;
+  	$scope.newuser.notmatch = false;
+  	$scope.newuser.email_usado = false;
+  	if ( angular.isUndefined($scope.newuser.nombre) ) {
+		$scope.newuser.error = true;
+		return;
   	}
+  	if ( angular.isUndefined($scope.newuser.apellido) ) {
+		$scope.newuser.error = true;
+		return;
+  	}
+  	if ( angular.isUndefined($scope.newuser.carrera) ) {
+		$scope.newuser.error = true;
+  		return;
+  	}
+  	if ( angular.isUndefined($scope.newuser.correo) ) {
+		$scope.newuser.email_error = true;
+		return;
+  	}
+  	if ( angular.isUndefined($scope.newuser.password) ) {
+		$scope.newuser.error = true;
+		return;
+  	}
+  	if ( angular.isUndefined($scope.newuser.repassword) ) {
+		$scope.newuser.error = true;
+		return;
+  	}
+  	if( $scope.newuser.password !== $scope.newuser.repassword  ){
+  		$scope.newuser.notmatch = true;
+  		return;
+  	}
+  	$rootScope.auth.register($scope.newuser,answer,$mdDialog);
+  	
     
   };
 }
-function loginCtrl($scope, $location, $rootScope,$mdDialog) {
+function loginCtrl($scope, $rootScope,$mdDialog) {
   $scope.credentials = {};
   $scope.hide = function() {
     $mdDialog.hide();

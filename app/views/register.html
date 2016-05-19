@@ -14,7 +14,11 @@
 				<p>Por favor ingrese sus datos para registrarse en Eventos Usach.</p>
 				<md-input-container flex class="md-block">
 					<label>Nombre</label>
-					<input ng-model="newuser.user" required>
+					<input ng-model="newuser.nombre" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Apellido</label>
+					<input ng-model="newuser.apellido" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Correo</label>
@@ -44,6 +48,10 @@
 			<div class="alert alert-danger" role="alert" ng-show="newuser.notmatch">
 				<span class="glyphicon glyphicon-remove-sign"></span>
   				Las password no coinciden
+			</div>
+			<div class="alert alert-danger" role="alert" ng-show="newuser.email_usado">
+				<span class="glyphicon glyphicon-remove-sign"></span>
+  				Email en uso. Porfavor utilice otro.
 			</div>
 		</div>
 	<md-dialog-actions layout="row">

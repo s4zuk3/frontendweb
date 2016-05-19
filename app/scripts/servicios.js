@@ -36,19 +36,31 @@ EventosUsach.service('auth',['$http', 'session', '$location',
       return session.isAdmin();
     };
     this.logIn = function(credentials,answer,$mdDialog){
-      credentials.id = 7;
-      var url = "http://localhost:8080/EventoUsachJava/usuarios/"+credentials.id;
       return $http
-        .get(url)
+      	.get('http://localhost:8080/EventoUsachJava/usuarios')
       	.then(function(response){
       		var data = response.data;
-      		if(data.correoUsuario == credentials.user && data.contrasenhaUsuario == credentials.password){
+          credentials.id=-1;
+          i=0;
+          for(user in data){
+            if(data[i].correoUsuario == credentials.user){
+              credentials.id = data[i].idUsuario;
+              break;
+            }
+            i++;
+          }
+          if(credentials.id == -1){ //no encontrado
+            session.destroy();
+            credentials.error = true;
+            return;
+          }
+      		if(data[i].correoUsuario == credentials.user && data[i].contrasenhaUsuario == credentials.password){
       			// Credenciales correctas
             credentials.error = false;
-            session.setUser(data.correoUsuario);
+            session.setUser(data[i].correoUsuario);
             $mdDialog.hide(answer);
-            if( data.administrador ){
-              session.setAdmin(data.correoUsuario);
+            if( data[i].administrador ){
+              session.setAdmin(data[i].correoUsuario);
             }
             $location.path('/user'); // Coloque un boton en la vista user en vez de tirar directo a /admin
       		}
@@ -59,6 +71,45 @@ EventosUsach.service('auth',['$http', 'session', '$location',
       		}
 
       	});
+    };
+     this.register = function(newuser,answer,$mdDialog){
+      
+      return $http
+        .get('http://localhost:8080/EventoUsachJava/usuarios')
+        .then(function(response){
+          var data = response.data;
+          newuser.id=-1;  
+          i=0;
+          for(user in data){
+            if(data[i].correoUsuario == newuser.correo){
+              newuser.id = data[i].idUsuario;
+              break;
+            }
+            i++;
+          }
+
+          if(newuser.id !== -1){ //encontrado
+            newuser.email_usado = true;
+            return;
+          }
+          var data_newuser = {};
+          data_newuser.administrador = false;
+          data_newuser.apellidoUsuario = newuser.apellido;
+          data_newuser.carreraUsuario =newuser.carrera;
+          data_newuser.contrasenhaUsuario =newuser.password;
+          data_newuser.correoUsuario =newuser.correo;
+          data_newuser.idTipoEstado = 1;
+          data_newuser.nombreUsuario=newuser.nombre;
+
+         
+          $http.post("http://localhost:8080/EventoUsachJava/usuarios", data_newuser)
+          .success(function(data, status) {
+            session.setUser(newuser.correo); //Dejarlo logeado una vez creada al cuenta.
+            $location.path('/user');
+            $mdDialog.hide(answer);
+          });
+          
+        });
     };
     
  }]);
