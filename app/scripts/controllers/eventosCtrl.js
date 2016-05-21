@@ -1,5 +1,17 @@
 EventosUsach.controller('EventosController', function($scope,$http,$templateCache,$window) {
 	$scope.eventos = null;
+	$scope.tipos = [];
+	$scope.fetchTipos = function(){
+		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(function(response){
+			for(dato in response.data){
+				var nombreTipo=response.data[dato].tipo_evento;
+				$scope.tipos.push(nombreTipo);
+				//$window.alert(nombreTipo);
+			}
+		},function(response){
+
+		});
+	}
 	$scope.fetch = function(){
 		$http
 		.get('http://localhost:8080/EventoUsachJava/lugares')
@@ -7,31 +19,30 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 			var data_lugares = response.data;
 			$http({method: 'GET', url: 'http://localhost:8080/EventoUsachJava/eventos', cache: $templateCache})
 			.then(function(response) {
-			$scope.eventos = response.data;
-			i=0;
-			for(evento in $scope.eventos){ //recopio valores para no modificar el template
-				$scope.eventos[i].foto = "Concierto"; // Dummy, no existe "foto" en la DB.
-				$scope.eventos[i].lat= data_lugares[$scope.eventos[i].idLugar].latitud;
-				$scope.eventos[i].lng = data_lugares[$scope.eventos[i].idLugar].longitud;
-				$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
-				$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
-				$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
-				$scope.eventos[evento].id=i++;
-			}
-			}, function(response) {
-			$scope.eventos = response.data || "Request failed";
-			i=0;
-			for(evento in $scope.eventos){
-				$scope.eventos[i].foto = "Concierto"; // Dummy, no existe "foto" en la DB.
-				$scope.eventos[i].latitud = data_lugares[$scope.eventos[i].idLugar].latitud;
-				$scope.eventos[i].longitud = data_lugares[$scope.eventos[i].idLugar].longitud;
-				$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
-				$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
-				$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
-				$scope.eventos[evento].id=i++;
-			}
-
-		});
+				$scope.eventos = response.data;
+				i=0;
+				for(evento in $scope.eventos){ //recopio valores para no modificar el template
+					$scope.eventos[i].foto = "Concierto"; // Dummy, no existe "foto" en la DB.
+					$scope.eventos[i].lat= data_lugares[$scope.eventos[i].idLugar].latitud;
+					$scope.eventos[i].lng = data_lugares[$scope.eventos[i].idLugar].longitud;
+					$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
+					$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
+					$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
+					$scope.eventos[evento].id=i++;
+					}
+				}, function(response) {
+				$scope.eventos = response.data || "Request failed";
+				i=0;
+				for(evento in $scope.eventos){
+					$scope.eventos[i].foto = "Concierto"; // Dummy, no existe "foto" en la DB.
+					$scope.eventos[i].latitud = data_lugares[$scope.eventos[i].idLugar].latitud;
+					$scope.eventos[i].longitud = data_lugares[$scope.eventos[i].idLugar].longitud;
+					$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
+					$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
+					$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
+					$scope.eventos[evento].id=i++;
+					}
+				});
 		});
 	}
 

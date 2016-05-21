@@ -13,7 +13,7 @@ var markers=[];
 <!-- Header -->
 <md-toolbar ng-controller="headerController">
 	<div class="md-toolbar-tools">
-		<h2>Eventos Usach</h2>
+		<span class="titleA">Eventos</span> <span class="titleB">Usach</span>
 		<span flex=""></span>
 		<md-button class="md-secondary" aria-label="Home" ng-click="home()">
 			<span class="glyphicon glyphicon-user"></span>
@@ -38,7 +38,7 @@ var markers=[];
 			<md-list ng-init="fetch()">
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
 					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.titulo}}">
-					<div class="md-list-item-text">
+					<div class="md-list-item-text" style="padding-right: 6em;text-align:justify;">
 						<h3>{{evento.titulo}}</h3>
 						<p>{{evento.descripcion}}</p>
 					</div>

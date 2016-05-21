@@ -1,5 +1,9 @@
 @import url("font-awesome.min.css");
 @import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300italic,400italic");
+@font-face {
+	font-family: 'fontastique';
+	src:url('../fonts/fontastique.ttf');
+}
 
 /* Reset */
 
@@ -939,4 +943,19 @@
 			border: 1px solid #ddd;
 			width: 33px;
 			margin: 16px;
+		}
+
+		.titleA{
+			font-size:2em;
+			font-family:fontastique;
+			letter-spacing: 1px;
+			text-shadow: -1px 0 #DDD, 0 1px #DDD, 1px 0 #DDD, 0 -1px #DDD;
+			color:#1b65bc;
+		}
+		.titleB{
+			font-size:2em;
+			font-family:fontastique;
+			letter-spacing: 1px;
+			/*text-shadow: -1px 0 #DDD, 0 1px #DDD, 1px 0 #DDD, 0 -1px #DDD;*/
+			color:#F18B29;
 		}

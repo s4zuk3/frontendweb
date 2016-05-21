@@ -14,14 +14,11 @@ var infowindows=[];
 <!-- Header -->
 <md-toolbar ng-controller="headerController">
 	<div class="md-toolbar-tools">
-		<h2>Eventos Usach</h2>
+		<span class="titleA">Eventos</span> <span class="titleB">Usach</span>
 		<span flex=""></span>
 		<md-button class="md-secondary" aria-label="Home" ng-click="home()">
 			<span class="glyphicon glyphicon-user"></span>
 			{{ session.getUser() }}
-		</md-button>
-		<md-button class="md-icon-button" aria-label="Settings" ng-click="settings($)">
-			<span class="glyphicon glyphicon-wrench"></span>
 		</md-button>
 		<md-button class="md-icon-button" aria-label="Logout" ng-click="logout($)">
 			<span class="glyphicon glyphicon-log-out"></span>
@@ -47,13 +44,24 @@ var infowindows=[];
 </md-toolbar>
 
 <!-- Main -->
-<section id="main" class="container">
+<section id="main" class="container" ng-controller="EventosController">
+<!--	<div id="" style="float:left;width:100%;padding-left:0em;">
+		<md-content  ng-init="fetchTipos()">
+			<md-input-container flex class="md-block">
+				<label>Tipo Evento</label>
+				<md-select ng-model="evento.tipo">
+					<md-option ng-repeat="tipo in tipos" value="{{tipo}}">
+						{{tipo}}
+					</md-option>
+			</md-input-container>
+		</md-content>
+	</div>-->
 	<div id="" style="float:left;width:600px;padding-left:0em;">
-		<md-content ng-controller="EventosController">
-			<md-list ng-init="fetch()">
+		<md-content ng-init="fetch()">
+			<md-list>
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
 					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.titulo}}">
-					<div class="md-list-item-text">
+					<div class="md-list-item-text" style="padding-right: 6em;text-align:justify;">
 						<h3>{{evento.titulo}}</h3>
 						<p>{{evento.descripcion}}</p>
 					</div>
