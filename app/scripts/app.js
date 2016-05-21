@@ -58,3 +58,20 @@ EventosUsach.directive('mdInputContainer', function ($timeout) {
         }
     };
 });
+
+/** directiva para permitir que los botones funcionen como hipervinculos **/
+EventosUsach.directive( 'ngGoClick', function ( $location ) {
+  return function ( scope, element, attrs ) {
+    var path;
+
+    attrs.$observe( 'ngGoClick', function (val) {
+      path = val;
+    });
+
+    element.bind( 'click', function () {
+      scope.$apply( function () {
+        $location.path( path );
+      });
+    });
+  };
+});

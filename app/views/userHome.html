@@ -31,7 +31,7 @@ var infowindows=[];
 			Nuevo Evento
 		</md-button>
 		<md-button class="md-raised" aria-label="Mis Suscripciones" ng-click="suscripciones()">
-			<span class="glyphicon glyphicon-list-alt"></span>
+			<span class="glyphicon glyphicon-calendar"></span>
 			Mis Suscripciones
 		</md-button>
 		<md-button ng-if="auth.isAdmin()" class="md-raised" aria-label="Administracion" ng-click="Administrar()">
@@ -61,11 +61,14 @@ var infowindows=[];
 			<md-list>
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
 					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.titulo}}">
-					<div class="md-list-item-text" style="padding-right: 6em;text-align:justify;">
+					<div class="md-list-item-text" style="float:left;width:80%;text-align:justify;">
 						<h3>{{evento.titulo}}</h3>
 						<p>{{evento.descripcion}}</p>
 					</div>
-					<md-button class="md-secondary" ng-click="addMarker(evento.lat,evento.lng);details(evento.id)">Ver</md-button>
+					<div style="float:left;padding-right: 0em;text-align:center">
+						<md-button ng-click="addMarker(evento.lat,evento.lng);details(evento.id)">Ver</md-button>
+						<md-button ng-click="suscribe(evento.id)">Suscribir</md-button>
+					</div>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 			</md-list>

@@ -27,6 +27,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 					$scope.eventos[i].lng = data_lugares[$scope.eventos[i].idLugar].longitud;
 					$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
 					$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
+					$scope.eventos[i].fechaEvento = $scope.eventos[i].fechaEvento;
 					$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
 					$scope.eventos[evento].id=i++;
 					}
@@ -38,6 +39,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 					$scope.eventos[i].latitud = data_lugares[$scope.eventos[i].idLugar].latitud;
 					$scope.eventos[i].longitud = data_lugares[$scope.eventos[i].idLugar].longitud;
 					$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
+					$scope.eventos[i].fechaEvento = $scope.eventos[i].fechaEvento;
 					$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
 					$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
 					$scope.eventos[evento].id=i++;
@@ -65,10 +67,12 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 		}
 		titulo=$scope.eventos[id].titulo;
 		descripcion=$scope.eventos[id].descripcion;
-		contentString='<div id="content">'+
-      '<h1 style="font-decoration:bold;">'+titulo+'</h1>'+
+		fecha=new Date($scope.eventos[id].fechaEvento);
+		contentString='<div style="font-size:12px;line-height:12px;color:#555;">'+
+      '<span style="font-weight:bold;font-size:14px;">'+titulo+'<br/><br/></span>'+
       '<p>'+descripcion+'</p>'+
-      '<a href="suscribe/'+i+'" style="color:#000;">Suscribir</a>'+
+      '<p>Fecha: '+fecha.toLocaleDateString()+'<br/>'+
+      'Hora: '+fecha.toLocaleTimeString()+'</p>'+
       '</div>';
 		var infowindow = new google.maps.InfoWindow({
     		content: contentString,
