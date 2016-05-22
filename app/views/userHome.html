@@ -1,16 +1,4 @@
-<script>
-var map=new google.maps.Map(document.getElementById("googleMap"),{
-	center:{lat:-33.450242, lng:-70.686313},
-  zoom:19,
-  zoomControl: false,
-  rotateControl: false,
-  mapTypeId:google.maps.MapTypeId.SATELLITE
-});
-var markers=[];
-var infowindows=[];
-</script>
-
-<md-content>
+<md-content ng-cloak>
 <!-- Header -->
 <md-toolbar ng-controller="headerController">
 	<div class="md-toolbar-tools">
@@ -56,11 +44,11 @@ var infowindows=[];
 			</md-input-container>
 		</md-content>
 	</div>-->
-	<div id="" style="float:left;width:600px;padding-left:0em;">
+	<div id="" style="float:left;width:600px;padding-left:0em;" ng-cloak>
 		<md-content ng-init="fetch()">
 			<md-list>
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
-					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.titulo}}">
+					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.titulo}}" ng-cloak>
 					<div class="md-list-item-text" style="float:left;width:80%;text-align:justify;">
 						<h3>{{evento.titulo}}</h3>
 						<p>{{evento.descripcion}}</p>
@@ -74,7 +62,6 @@ var infowindows=[];
 			</md-list>
 		</md-content>
 	</div>
-	<div id="googleMap" style="width:500px;height:380px;margin:auto;float:left;"></div>
+	<div id="googleMap" style="width:500px;height:380px;margin:auto;float:left;" ng-cloak></div>
 </section>
-
 </md-content>

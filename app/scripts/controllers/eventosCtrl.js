@@ -56,6 +56,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 		var marker = new google.maps.Marker({
 			position: {lat:x,lng:y},
 			map: map,
+			zoom: 19,
 			animation: google.maps.Animation.DROP
 		});
 		markers.push(marker);
@@ -67,7 +68,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 		}
 		titulo=$scope.eventos[id].titulo;
 		descripcion=$scope.eventos[id].descripcion;
-		fecha=new Date($scope.eventos[id].fechaEvento);
+		fecha=new Date($scope.eventos[id].inicioEvento);
 		contentString='<div style="font-size:12px;line-height:12px;color:#555;">'+
       '<span style="font-weight:bold;font-size:14px;">'+titulo+'<br/><br/></span>'+
       '<p>'+descripcion+'</p>'+
@@ -81,6 +82,5 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 		infowindows=[];
 		infowindow.open(map,markers[0]);
 		infowindows.push(infowindow);
-		map.setCenter({lat:x,lng:y});
 	};
 }); 
