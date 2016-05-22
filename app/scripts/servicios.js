@@ -1,7 +1,7 @@
 EventosUsach.service('session',['$log', '$window',
   function($log, $window) {
-  		 this._user = JSON.parse($window.localStorage.getItem('session.user'));
-       this._admin = JSON.parse($window.localStorage.getItem('session.admin'));
+      this._user = JSON.parse($window.localStorage.getItem('session.user'));
+      this._admin = JSON.parse($window.localStorage.getItem('session.admin'));
       this.getUser = function(){
       		return this._user;
     	 };
@@ -57,7 +57,7 @@ EventosUsach.service('auth',['$http', 'session', '$location',
       		if(data[i].correoUsuario == credentials.user && data[i].contrasenhaUsuario == credentials.password){
       			// Credenciales correctas
             credentials.error = false;
-            session.setUser(data[i].nombreUsuario);
+            session.setUser(data[i].correoUsuario);
             $mdDialog.hide(answer);
             if( data[i].administrador ){
               session.setAdmin(data[i].correoUsuario);
@@ -73,7 +73,6 @@ EventosUsach.service('auth',['$http', 'session', '$location',
       	});
     };
      this.register = function(newuser,answer,$mdDialog){
-      
       return $http
         .get('http://localhost:8080/EventoUsachJava/usuarios')
         .then(function(response){
@@ -88,7 +87,7 @@ EventosUsach.service('auth',['$http', 'session', '$location',
             i++;
           }
 
-          if(newuser.id !== -1){ //encontrado
+          if(newuser.id != -1){ //encontrado
             newuser.email_usado = true;
             return;
           }
@@ -101,10 +100,9 @@ EventosUsach.service('auth',['$http', 'session', '$location',
           data_newuser.idTipoEstado = 1;
           data_newuser.nombreUsuario=newuser.nombre;
 
-         
           $http.post("http://localhost:8080/EventoUsachJava/usuarios", data_newuser)
           .success(function(data, status) {
-            session.setUser(newuser.nombreUsuario); //Dejarlo logeado una vez creada al cuenta.
+            session.setUser(newuser.correo); //Dejarlo logeado una vez creada al cuenta.
             $location.path('/user');
             $mdDialog.hide(answer);
           });

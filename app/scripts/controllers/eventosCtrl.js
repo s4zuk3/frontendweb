@@ -1,18 +1,18 @@
 EventosUsach.controller('EventosController', function($scope,$http,$templateCache,$window) {
 	$scope.eventos = null;
 	$scope.tipos = [];
-	$scope.fetchTipos = function(){
-		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(function(response){
-			for(dato in response.data){
-				var nombreTipo=response.data[dato].tipo_evento;
-				$scope.tipos.push(nombreTipo);
-				//$window.alert(nombreTipo);
-			}
-		},function(response){
-
-		});
-	}
 	$scope.fetch = function(){
+		$http
+      	.get('http://localhost:8080/EventoUsachJava/tipos')
+      	.then(function(response){
+			var data = response.data;
+			var i=0;
+			for(tipo in data){
+				$scope.tipos.push(data[i].tipoEvento.replace("Ã³","o").replace("ó","o"));
+				i++;
+			}
+		});
+
 		$http
 		.get('http://localhost:8080/EventoUsachJava/lugares')
 		.then(function(response){
@@ -22,7 +22,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 				$scope.eventos = response.data;
 				i=0;
 				for(evento in $scope.eventos){ //recopio valores para no modificar el template
-					$scope.eventos[i].foto = "Concierto"; // Dummy, no existe "foto" en la DB.
+					$scope.eventos[i].foto = $scope.tipos[$scope.eventos[i].idTipo-1];
 					$scope.eventos[i].lat= data_lugares[$scope.eventos[i].idLugar].latitud;
 					$scope.eventos[i].lng = data_lugares[$scope.eventos[i].idLugar].longitud;
 					$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
@@ -35,7 +35,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 				$scope.eventos = response.data || "Request failed";
 				i=0;
 				for(evento in $scope.eventos){
-					$scope.eventos[i].foto = "Concierto"; // Dummy, no existe "foto" en la DB.
+					$scope.eventos[i].foto = $scope.tipos[$scope.eventos[i].idTipo];
 					$scope.eventos[i].latitud = data_lugares[$scope.eventos[i].idLugar].latitud;
 					$scope.eventos[i].longitud = data_lugares[$scope.eventos[i].idLugar].longitud;
 					$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;

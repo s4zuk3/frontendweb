@@ -140,8 +140,7 @@ function eventCtrl($scope, $rootScope,$mdDialog,$http) {
 			var data = response.data;
 			var i=0;
 			for(tipo in data){
-				$window.alert(data[i].idTipo);
-				$scope.tipos.push(data[i].idTipo);
+				$scope.tipos.push(data[i].tipoEvento.replace("Ã³","ó"));
 				i++;
 			}
 		});
