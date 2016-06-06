@@ -1,58 +1,52 @@
 EventosUsach.controller('EventosController', function($scope,$http,$templateCache,$window) {
-	$scope.eventos = null;
-	$scope.tipos = [];
-	$scope.fetch = function(){
-		$http
-      	.get('http://localhost:8080/EventoUsachJava/tipos')
-      	.then(function(response){
-			var data = response.data;
-			var i=0;
-			for(tipo in data){
-				$scope.tipos.push(data[i].tipoEvento.replace("Ã³","o").replace("ó","o"));
-				i++;
+	$scope.obtener = function(){
+		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(
+			//success:
+			function(response){
+				$scope.tipos = response.data;
+				var tipos = response.data;
+				$http.get('http://localhost:8080/EventoUsachJava/lugares').then(
+					//success:
+					function(response){
+						$scope.lugares = response.data;
+						var lugares = response.data;
+						$http.get('http://localhost:8080/EventoUsachJava/eventos').then(
+							//success:
+							function(response){
+								$scope.eventos = response.data;
+								var eventos = response.data;
+								i=0;
+								for(evento in eventos){
+									$scope.eventos[i].foto = tipos[eventos[i].idTipo-1].tipoEvento;
+									$scope.eventos[i].lat = lugares[eventos[i].idLugar].latitud;
+									$scope.eventos[i].lng = lugares[eventos[i].idLugar].longitud;
+									$scope.eventos[i].nombreLugar = lugares[eventos[i].idLugar].nombreLugar;
+									$scope.eventos[i].fechaEvento = eventos[i].fechaEvento;
+									$scope.eventos[i].titulo = eventos[i].tituloEvento;
+									$scope.eventos[i].descripcion = eventos[i].descripcionEvento;
+									$scope.eventos[evento].id=i++;
+								}
+							},
+							//failure:
+							function(response){
+								$scope.obtener();
+							}
+						);
+					},
+					//failure
+					function(response){
+						$scope.obtener();
+					}
+				);
+			},
+			//failure:
+			function(response){
+				$scope.obtener();
 			}
-		});
-
-		$http
-		.get('http://localhost:8080/EventoUsachJava/lugares')
-		.then(function(response){
-			var data_lugares = response.data;
-			$http({method: 'GET', url: 'http://localhost:8080/EventoUsachJava/eventos', cache: $templateCache})
-			.then(function(response) {
-				$scope.eventos = response.data;
-				i=0;
-				for(evento in $scope.eventos){ //recopio valores para no modificar el template
-					$scope.eventos[i].foto = $scope.tipos[$scope.eventos[i].idTipo-1];
-					$scope.eventos[i].lat= data_lugares[$scope.eventos[i].idLugar].latitud;
-					$scope.eventos[i].lng = data_lugares[$scope.eventos[i].idLugar].longitud;
-					$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
-					$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
-					$scope.eventos[i].fechaEvento = $scope.eventos[i].fechaEvento;
-					$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
-					$scope.eventos[evento].id=i++;
-					}
-				}, function(response) {
-				$scope.eventos = response.data || "Request failed";
-				i=0;
-				for(evento in $scope.eventos){
-					$scope.eventos[i].foto = $scope.tipos[$scope.eventos[i].idTipo];
-					$scope.eventos[i].latitud = data_lugares[$scope.eventos[i].idLugar].latitud;
-					$scope.eventos[i].longitud = data_lugares[$scope.eventos[i].idLugar].longitud;
-					$scope.eventos[i].nombreLugar =data_lugares[$scope.eventos[i].idLugar].nombreLugar;
-					$scope.eventos[i].fechaEvento = $scope.eventos[i].fechaEvento;
-					$scope.eventos[i].titulo = $scope.eventos[i].tituloEvento;
-					$scope.eventos[i].descripcion = $scope.eventos[i].descripcionEvento;
-					$scope.eventos[evento].id=i++;
-					}
-				});
-		});
+		);
 	}
-
 	$scope.addMarker = function(x, y) {
-		for(i=0;i<markers.length;i++){
-			markers[i].setMap(null);
-		}
-		markers=[];
+		clearMap();
 		var marker = new google.maps.Marker({
 			position: {lat:x,lng:y},
 			map: map,
@@ -63,9 +57,6 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 		map.setCenter({lat:x,lng:y});
 	};
 	$scope.details = function(id) {
-		for(i=0;i<infowindows.length;i++){
-			infowindows[i].close();
-		}
 		titulo=$scope.eventos[id].titulo;
 		descripcion=$scope.eventos[id].descripcion;
 		fecha=new Date($scope.eventos[id].inicioEvento);
@@ -79,7 +70,6 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
     		content: contentString,
     		maxWidth: 200
 		});
-		infowindows=[];
 		infowindow.open(map,markers[0]);
 		infowindows.push(infowindow);
 	};

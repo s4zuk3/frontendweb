@@ -1,54 +1,7 @@
-<md-content ng-cloak>
-<!-- Header -->
-<md-toolbar ng-controller="headerController">
-	<div class="md-toolbar-tools">
-		<span class="titleA">Eventos</span> <span class="titleB">Usach</span>
-		<span flex=""></span>
-		<md-button class="md-secondary" aria-label="Home" ng-click="home()">
-			<span class="glyphicon glyphicon-user"></span>
-			{{ session.getUser() }}
-		</md-button>
-		<md-button class="md-icon-button" aria-label="Logout" ng-click="logout($)">
-			<span class="glyphicon glyphicon-log-out"></span>
-		</md-button>
-	</div>
-	<div class="md-toolbar-tools" style="height:24px;background:#FFF;">
-		<span flex=""></span>
-		<md-button class="md-raised" aria-label="Nuevo Evento" ng-click="nuevo()">
-			<span class="glyphicon glyphicon-plus-sign"></span>
-			Nuevo Evento
-		</md-button>
-		<md-button class="md-raised" aria-label="Mis Suscripciones" ng-click="suscripciones()">
-			<span class="glyphicon glyphicon-calendar"></span>
-			Mis Suscripciones
-		</md-button>
-		<md-button ng-if="auth.isAdmin()" class="md-raised" aria-label="Administracion" ng-click="Administrar()">
-			<span class="glyphicon glyphicon-cog"></span>
-			Administración
-		</md-button>
-		
-	
-	</div>
-</md-toolbar>
-
-<!-- Main -->
-<section id="main" class="container" ng-controller="EventosController">
-<!--	<div id="" style="float:left;width:100%;padding-left:0em;">
-		<md-content  ng-init="fetchTipos()">
-			<md-input-container flex class="md-block">
-				<label>Tipo Evento</label>
-				<md-select ng-model="evento.tipo">
-					<md-option ng-repeat="tipo in tipos" value="{{tipo}}">
-						{{tipo}}
-					</md-option>
-			</md-input-container>
-		</md-content>
-	</div>-->
-	<div id="" style="float:left;width:600px;padding-left:0em;" ng-cloak>
-		<md-content ng-init="fetch()">
-			<md-list>
+		<md-content ng-controller="EventosController">
+			<md-list ng-init="obtener()">
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
-					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.titulo}}" ng-cloak>
+					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.foto}}" ng-cloak>
 					<div class="md-list-item-text" style="float:left;width:80%;text-align:justify;">
 						<h3>{{evento.titulo}}</h3>
 						<p>{{evento.descripcion}}</p>
@@ -61,7 +14,3 @@
 				</md-list-item>
 			</md-list>
 		</md-content>
-	</div>
-	<div id="googleMap" style="width:500px;height:380px;margin:auto;float:left;" ng-cloak></div>
-</section>
-</md-content>

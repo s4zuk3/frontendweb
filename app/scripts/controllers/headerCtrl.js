@@ -1,4 +1,7 @@
 EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialog, $mdMedia,$location,$window){
+	$scope.admin=false;
+	$scope.logged=false;
+	$scope.currentLocation = $location.path();
 	$scope.status = '  ';
 	$scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 	$scope.showRegister = function(ev) {
@@ -59,12 +62,20 @@ EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialo
 		});
 	};
 	$scope.logout = function(){
+		clearMap();
 		$rootScope.session.destroy();
 		$location.path('/');
 	};
-	$scope.Administrar = function(){
-		$location.path('/admin');
+	$scope.administrar = function(){
+		clearMap();
+		$scope.admin=true;
+		$location.path('admin');
 	};
+	$scope.verComoUsuario = function(){
+		clearMap();
+		$scope.admin=false;
+		$location.path('/');
+	}
 })
 
 function registerController($scope,$rootScope,$mdDialog) {
