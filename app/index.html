@@ -73,7 +73,7 @@
     <span flex=""></span>
     <md-button class="md-secondary" aria-label="Home" ng-click="home()">
       <span class="glyphicon glyphicon-user"></span>
-      {{ session.getUser() }}
+      {{ session.getUser().nombreUsuario }} {{ session.getUser().apellidoUsuario }}
     </md-button>
     <md-button class="md-icon-button" aria-label="Logout" ng-click="logout($)">
       <span class="glyphicon glyphicon-log-out"></span>
@@ -85,15 +85,15 @@
       <span class="glyphicon glyphicon-plus-sign"></span>
       Nuevo Evento
     </md-button>
-    <md-button class="md-raised" aria-label="Nuevo Evento" ng-click="gestEventos()">
+    <md-button class="md-raised" aria-label="Gestionar Eventos" ng-click="gestEventos()">
       <span class="glyphicon glyphicon-calendar"></span>
       Gestionar Eventos
     </md-button>
-    <md-button class="md-raised" aria-label="Mis Suscripciones" ng-click="gestUsuarios()">
+    <md-button class="md-raised" aria-label="Gestionar Usuarios" ng-click="gestUsuarios()">
       <span class="glyphicon glyphicon-list-alt"></span>
       Gestionar Usuarios
     </md-button>
-    <md-button class="md-raised" aria-label="Mis Suscripciones" ng-click="verComoUsuario()">
+    <md-button class="md-raised" aria-label="Ver como Usuario" ng-click="verComoUsuario()">
       <span class="glyphicon glyphicon-eye-open"></span>
       Ver como Usuario
     </md-button>
@@ -150,9 +150,12 @@
   <!-- inject:js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/servicios.js"></script>
+  <script src="scripts/controllers/eventCtrl.js"></script>
   <script src="scripts/controllers/eventosCtrl.js"></script>
   <script src="scripts/controllers/headerCtrl.js"></script>
   <script src="scripts/controllers/homeCtrl.js"></script>
+  <script src="scripts/controllers/locinCtrl.js"></script>
+  <script src="scripts/controllers/registerCtrl.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-NfZYvTZcPfnNewL-sU5B9OmRaFCJa1I&callback=initMap" async defer></script>

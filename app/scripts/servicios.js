@@ -57,10 +57,10 @@ EventosUsach.service('auth',['$http', 'session', '$location',
       		if(data[i].correoUsuario == credentials.user && data[i].contrasenhaUsuario == credentials.password){
       			// Credenciales correctas
             credentials.error = false;
-            session.setUser(data[i].correoUsuario);
+            session.setUser(data[i]);
             $mdDialog.hide(answer);
             if( data[i].administrador ){
-              session.setAdmin(data[i].correoUsuario);
+              session.setAdmin(data[i]);
             }
             $location.path('/user'); // Coloque un boton en la vista user en vez de tirar directo a /admin
       		}
@@ -102,7 +102,8 @@ EventosUsach.service('auth',['$http', 'session', '$location',
 
           $http.post("http://localhost:8080/EventoUsachJava/usuarios", data_newuser)
           .success(function(data, status) {
-            session.setUser(newuser.correo); //Dejarlo logeado una vez creada al cuenta.
+            data_newuser.idUsuario=i;
+            session.setUser(data_newuser); //Dejarlo logeado una vez creada al cuenta.
             $location.path('/user');
             $mdDialog.hide(answer);
           });

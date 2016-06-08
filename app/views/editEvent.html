@@ -1,7 +1,7 @@
-<md-dialog ng-controller="EventosController" ng-init="obtener()" ng-cloak>
+<md-dialog ng-controller="EventosController" ng-init="obtenerE()" ng-cloak>
 	<md-toolbar>
 		<div class="md-toolbar-tools">
-			<h2 style="color:#DDDDDD">Registrar nuevo evento</h2>
+			<h2 style="color:#DDDDDD">Editar evento</h2>
 			<span flex></span>
 			<md-button class="md-icon-button" ng-click="cancel()">
 				<md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -10,24 +10,24 @@
 	</md-toolbar>
 	<md-dialog-content>
 		<div class="md-dialog-content">
-			<form name="searchForm">
+			<form name="editForm">
 				<p>Por favor ingrese los datos del evento.</p>
 				<md-input-container flex class="md-block">
-					<label>Titulo</label>
+					<label>{{evento.tituloEvento}}</label>
 					<input ng-model="newevent.nombre" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
-					<label>Descripción</label>
+					<label>{{evento.descripcionEvento}}</label>
 					<input ng-model="newevent.descripcion" required>
 				</md-input-container>
 				<md-select placeholder="Tipo de Evento" ng-model="newevent.tipo" ng-init="loadTipo()" style="min-width: 200px;">
-      				<md-option ng-value="tipo" ng-repeat="tipo in tipos">{{tipo.tipoEvento}}</md-option>
+      				<md-option ng-value="tipo" ng-repeat="tipo in tipos" ng-selected="evento.foto==tipo.tipoEvento">{{tipo.tipoEvento}}</md-option>
     			</md-select>
     			<md-select placeholder="Lugar" ng-model="newevent.lugar" ng-init="loadLugar()" style="min-width: 200px;">
-      				<md-option ng-value="lugar" ng-repeat="lugar in lugares">{{lugar.nombreLugar}}</md-option>
+      				<md-option ng-value="lugar" ng-repeat="lugar in lugares" ng-selected="evento.nombreLugar==lugar.nombreLugar">{{lugar.nombreLugar}}</md-option>
     			</md-select>
     			<h4>Fecha del evento</h4>
-				<md-datepicker ng-model="evento.fecha" md-placeholder="Ingrese Fecha" md-min-date="minDate" md-max-date="maxDate">
+				<md-datepicker ng-model="newevent.fecha" ng-init="evento.fecha" md-placeholder="Ingrese Fecha" md-min-date="minDate" md-max-date="maxDate">
 				</md-datepicker>
 			</form>
 		</div>
