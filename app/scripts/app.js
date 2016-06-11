@@ -9,9 +9,8 @@ EventosUsach.config(['$routeProvider', function($routeProvider) {
 				}
 			}	
 		},
-		 templateUrl: 'views/guestHome.html',
-		 controller: 'GuestController'
-	}).
+		templateUrl: 'views/guestHome.html',
+		controller: 'GuestController'}).
 	when('/user', {
 		resolve: {
 			"check": function($location,$rootScope){
@@ -60,7 +59,7 @@ EventosUsach.directive('mdInputContainer', function ($timeout) {
 });
 
 /** directiva para permitir que los botones funcionen como hipervinculos **/
-EventosUsach.directive( 'ngGoClick', function ( $location ) {
+EventosUsach.directive( 'ngGoClick', function ( $location, $window ) {
   return function ( scope, element, attrs ) {
     var path;
 
@@ -70,7 +69,8 @@ EventosUsach.directive( 'ngGoClick', function ( $location ) {
 
     element.bind( 'click', function () {
       scope.$apply( function () {
-        $location.path( path );
+      	$location.path(path);
+      	$window.location.reload();
       });
     });
   };

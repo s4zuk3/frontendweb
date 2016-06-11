@@ -22,22 +22,107 @@
   <!-- endinject -->
   <!-- endbuild -->
 <script>
-var map;
-function initMap(){
-  map=new google.maps.Map(document.getElementById("googleMap"),{
-    center:{lat:-33.450242, lng:-70.686313},
-    zoom:19,
-    zoomControl: false,
-    rotateControl: false,
-    mapTypeId:google.maps.MapTypeId.SATELLITE
-  });
-}
-var markers=[];
-var infowindows=[];
+  var map;
+  function initMap(){
+      map=new google.maps.Map(document.getElementById("googleMap"),{
+        center:{lat:-33.450242, lng:-70.686313},
+        zoom:19,
+        zoomControl: false,
+        rotateControl: false,
+        mapTypeId:google.maps.MapTypeId.SATELLITE
+      });
+  }
+  var markers=[];
+  var infowindows=[];
+  function clearMap(){
+    for(i=0;i<markers.length;i++){
+      markers[i].setMap(null);
+    }
+    for(i=0;i<infowindows.length;i++){
+      infowindows[i].close();
+    }
+    markers=[];
+    infowindows=[];
+  } 
 </script>
 </head>
 <body ng-app="EventosUsach">
-<div ng-view ng-cloak></div>
+<md-content ng-cloak>
+<!-- Header -->
+<md-toolbar ng-controller="headerController">
+  <div ng-if="!auth.isLoggedIn()" class="md-toolbar-tools">
+    <span class="titleA">Eventos</span> <span class="titleB">Usach</span>
+    <span flex=""></span>
+    <md-button class="md-secondary" aria-label="Home" ng-click="home()">
+      <span class="glyphicon glyphicon-user"></span>
+      Invitado
+    </md-button>
+    <md-button class="md-raised" aria-label="Registrarse" ng-click="showRegister($event)">
+      Registrarse
+    </md-button>
+    <md-button class="md-raised" aria-label="Iniciar Sesión" ng-click="showLogin($event)">
+      Iniciar Sesión
+    </md-button>
+  </div>
+  <div ng-if="!auth.isLoggedIn()" class="md-toolbar-tools" style="height:24px;background:#FFF;">
+    <span flex=""></span>
+  </div>
+  <div ng-if="auth.isLoggedIn()" class="md-toolbar-tools">
+    <span class="titleA">Eventos</span> <span class="titleB">Usach</span>
+    <span ng-if="admin">&nbsp; &nbsp; Panel de Administración</span>
+    <span flex=""></span>
+    <md-button class="md-secondary" aria-label="Home" ng-click="home()">
+      <span class="glyphicon glyphicon-user"></span>
+      {{ session.getUser().nombreUsuario }} {{ session.getUser().apellidoUsuario }}
+    </md-button>
+    <md-button class="md-icon-button" aria-label="Logout" ng-click="logout($)">
+      <span class="glyphicon glyphicon-log-out"></span>
+    </md-button>
+  </div>
+  <div ng-if="auth.isLoggedIn() && admin" class="md-toolbar-tools" style="height:24px;background:#FFF;">
+    <span flex=""></span>
+    <md-button class="md-raised" aria-label="Nuevo Evento" ng-click="nuevo()">
+      <span class="glyphicon glyphicon-plus-sign"></span>
+      Nuevo Evento
+    </md-button>
+    <md-button class="md-raised" aria-label="Gestionar Eventos" ng-click="gestEventos()">
+      <span class="glyphicon glyphicon-calendar"></span>
+      Gestionar Eventos
+    </md-button>
+    <md-button class="md-raised" aria-label="Gestionar Usuarios" ng-click="gestUsuarios()">
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Gestionar Usuarios
+    </md-button>
+    <md-button class="md-raised" aria-label="Ver como Usuario" ng-click="verComoUsuario()">
+      <span class="glyphicon glyphicon-eye-open"></span>
+      Ver como Usuario
+    </md-button>
+  </div>
+  <div ng-if="auth.isLoggedIn() && !admin" class="md-toolbar-tools" style="height:24px;background:#FFF;">
+    <span flex=""></span>
+    <md-button class="md-raised" aria-label="Nuevo Evento" ng-click="nuevo()">
+      <span class="glyphicon glyphicon-plus-sign"></span>
+      Nuevo Evento
+    </md-button>
+    <md-button class="md-raised" aria-label="Mis Suscripciones" ng-click="suscripciones()">
+      <span class="glyphicon glyphicon-calendar"></span>
+      Mis Suscripciones
+    </md-button>
+    <md-button ng-if="auth.isAdmin()" class="md-raised" aria-label="Administracion" ng-click="administrar()">
+      <span class="glyphicon glyphicon-cog"></span>
+      Administración
+    </md-button>
+  </div>
+</md-toolbar>
+<!-- Main -->
+<section id="main" class="container">
+  <div style="float:left;width:600px;padding-left:0em;" ng-cloak>
+    <div ng-view></div>
+  </div>
+  <div id="googleMap" style="width:500px;height:380px;margin:auto;float:left;" ng-cloak></div>
+</section>
+
+</md-content>
 <!-- Footer -->
 <div id="oLine"></div>
 <footer id="footer">
@@ -65,11 +150,14 @@ var infowindows=[];
   <!-- inject:js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/servicios.js"></script>
+  <script src="scripts/controllers/eventCtrl.js"></script>
   <script src="scripts/controllers/eventosCtrl.js"></script>
   <script src="scripts/controllers/headerCtrl.js"></script>
   <script src="scripts/controllers/homeCtrl.js"></script>
+  <script src="scripts/controllers/locinCtrl.js"></script>
+  <script src="scripts/controllers/registerCtrl.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
-  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-NfZYvTZcPfnNewL-sU5B9OmRaFCJa1I&callback=initMap" async defer"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-NfZYvTZcPfnNewL-sU5B9OmRaFCJa1I&callback=initMap" async defer></script>
 </body>
 </html>

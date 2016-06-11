@@ -1,5 +1,5 @@
 		<md-content ng-controller="EventosController">
-			<md-list ng-init="obtener()">
+			<md-list ng-init="obtenerUser()">
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
 					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.foto}}" ng-cloak>
 					<div class="md-list-item-text" style="float:left;width:80%;text-align:justify;">
@@ -8,7 +8,6 @@
 					</div>
 					<div style="float:left;padding-right: 0em;text-align:center">
 						<md-button ng-click="addMarker(evento.lat,evento.lng);details(evento.id)">Ver</md-button>	
-						<md-button ng-click="edit(evento.id)">Editar</md-button>
 					</div>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>

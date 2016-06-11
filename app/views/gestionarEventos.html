@@ -1,5 +1,5 @@
 		<md-content ng-controller="EventosController">
-			<md-list ng-init="obtener()">
+			<md-list ng-init="obtenerAll()">
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
 					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.foto}}" ng-cloak>
 					<div class="md-list-item-text" style="float:left;width:80%;text-align:justify;">
