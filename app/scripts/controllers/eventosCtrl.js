@@ -325,4 +325,57 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 			$scope.credentials.error = true;
 		}
 	};
+
+	$scope.create_event = function(newevent){
+		
+		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(
+			//success:
+			function(response){
+				$scope.tipos = response.data;
+				var tipos = response.data;
+				$http.get('http://localhost:8080/EventoUsachJava/lugares').then(
+					//success:
+					function(response){
+						$scope.lugares = response.data;
+						var lugares = response.data;
+
+
+						var data_newevent = {};
+			          data_newevent.descripcionEvento = newevent.descripcion;
+			          data_newevent.finEvento = newevent.fecha; //newevent.fecha;
+			          data_newevent.inicioEvento = newevent.fecha; //newevent.fecha;
+			          data_newevent.tituloEvento =newevent.nombre;
+			          data_newevent.idUsuario = $rootScope.session.getUser().idUsuario; 
+			          data_newevent.idTipo = newevent.tipo.idTipo; // valor dummy por ahora
+			          data_newevent.idLugar= newevent.lugar.idLugar; // valor dummy por ahora
+
+          $http.post("http://localhost:8080/EventoUsachJava/eventos", data_newevent)
+          .success(function(data, status) {
+            
+          });
+          $mdDialog.hide();
+
+
+					},
+					//failure
+					function(response){
+						
+					}
+				);
+			},
+			//failure:
+			function(response){
+				
+			}
+		);
+
+
+
+
+
+
+		
+
+
+	};
 }); 

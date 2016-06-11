@@ -11,7 +11,7 @@
 	<md-dialog-content>
 		<div class="md-dialog-content">
 			<form name="searchForm">
-				<p>Por favor ingrese los datos del evento.</p>
+				<p>Por favor ingrese los datos del evento. {{ id_user }}</p>
 				<md-input-container flex class="md-block">
 					<label>Titulo</label>
 					<input ng-model="newevent.nombre" required>
@@ -23,17 +23,19 @@
 				<md-select placeholder="Tipo de Evento" ng-model="newevent.tipo" ng-init="loadTipo()" style="min-width: 200px;">
       				<md-option ng-value="tipo" ng-repeat="tipo in tipos">{{tipo.tipoEvento}}</md-option>
     			</md-select>
+
+
     			<md-select placeholder="Lugar" ng-model="newevent.lugar" ng-init="loadLugar()" style="min-width: 200px;">
       				<md-option ng-value="lugar" ng-repeat="lugar in lugares">{{lugar.nombreLugar}}</md-option>
     			</md-select>
     			<h4>Fecha del evento</h4>
-				<md-datepicker ng-model="evento.fecha" md-placeholder="Ingrese Fecha" md-min-date="minDate" md-max-date="maxDate">
+				<md-datepicker ng-model="newevent.fecha" md-placeholder="Ingrese Fecha" md-min-date="minDate" md-max-date="maxDate">
 				</md-datepicker>
 			</form>
 		</div>
 	<md-dialog-actions layout="row">
 		<span flex></span>
-		<md-button ng-click="answer(newuser)">
+		<md-button ng-click="create_event(newevent)">
 			Registrar Evento
 		</md-button>
 	</md-dialog-actions>
