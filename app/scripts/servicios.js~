@@ -1,9 +1,6 @@
 EventosUsach.service('session',['$log', '$window',
   function($log, $window) {
- 	this._user = JSON.parse($window.localStorage.getItem('session.user'));
-      this._admin = JSON.parse($window.localStorage.getItem('session.admin'));
-           
-	this.getUser = function(){
+     this.getUser = function(){
       		return this._user;
     	 };
 
