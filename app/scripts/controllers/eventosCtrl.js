@@ -1,4 +1,4 @@
-EventosUsach.controller('EventosController', function($scope,$http,$templateCache,$window,$rootScope,$mdDialog, $mdMedia) {
+EventosUsach.controller('EventosController', function($scope,$http,$location,$templateCache,$window,$rootScope,$mdDialog, $mdMedia) {
 	auth = $rootScope.auth;
 	session = $rootScope.session;
 	hoy = new Date();
@@ -39,6 +39,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 									$scope.eventos[i].titulo = eventos[i].tituloEvento;
 									$scope.eventos[i].descripcion = eventos[i].descripcionEvento;
 									$scope.eventos[evento].id=i++;
+
 								}
 								if(auth.isLoggedIn()){
 									$http.get('http://localhost:8080/EventoUsachJava/eventosusuarios').then(
@@ -46,14 +47,18 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 										function(response){
 											eventosUsuario=response.data;
 											$scope.eventosUsuario=[];
+											var even = [];
 											i=0;
 											for(eventousuario in eventosUsuario){
 												if(eventosUsuario[i].idUsuario==session.getUser().idUsuario){
+													//$scope.eventos[eventosUsuario[i].idEvento].asisto = true;
+													even.push(eventosUsuario[i].idEvento);
 													$scope.eventosUsuario.push(eventosUsuario[i].idEvento);
 												}
 												i++;
 											}
 											eventosUsuario=$scope.eventosUsuario;
+											$rootScope.even = even;
 										},
 										//failure:
 										function(response){
@@ -288,17 +293,37 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 	}
 	$scope.asiste = function(id){
 		if(auth.isLoggedIn()){
-			for(evento in $scope.eventosUsuario){
-				if(id==evento)return true;
-			}
-			return false;
-		}else{
-			return false;
+		i=0
+		for(e in $rootScope.even){
+			//alert($rootScope.even[i] + "&"+ id);
+			if($rootScope.even[i] == id)
+				return true;
+			i++;
 		}
+		}
+		return false;
 	}
+
+
+
 	$scope.suscribe = function(id,asistir){
 		if(auth.isLoggedIn()){
-
+			var data_newuserevent = {}
+			//alert(id);
+			//alert($rootScope.session.getUser().idUsuario);
+			data_newuserevent.idEvento = id;
+			data_newuserevent.idUsuario = $rootScope.session.getUser().idUsuario;
+			$http.post("http://localhost:8080/EventoUsachJava/eventosusuarios", data_newuserevent)
+          .success(function(data, status) {
+          		$location.path('/'); // si no es admin, lo tirar automagicamente a /user
+          });
+		}else{
+			return null;
+		}
+	}
+	$scope.desuscribe = function(id,asistir){
+		if(auth.isLoggedIn()){
+			
 		}else{
 			return null;
 		}
@@ -328,54 +353,21 @@ EventosUsach.controller('EventosController', function($scope,$http,$templateCach
 
 	$scope.create_event = function(newevent){
 		
-		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(
-			//success:
-			function(response){
-				$scope.tipos = response.data;
-				var tipos = response.data;
-				$http.get('http://localhost:8080/EventoUsachJava/lugares').then(
-					//success:
-					function(response){
-						$scope.lugares = response.data;
-						var lugares = response.data;
-
-
-						var data_newevent = {};
-			          data_newevent.descripcionEvento = newevent.descripcion;
-			          data_newevent.finEvento = newevent.fecha; //newevent.fecha;
-			          data_newevent.inicioEvento = newevent.fecha; //newevent.fecha;
-			          data_newevent.tituloEvento =newevent.nombre;
-			          data_newevent.idUsuario = $rootScope.session.getUser().idUsuario; 
-			          data_newevent.idTipo = newevent.tipo.idTipo; // valor dummy por ahora
-			          data_newevent.idLugar= newevent.lugar.idLugar; // valor dummy por ahora
+		var data_newevent = {};
+		data_newevent.descripcionEvento = newevent.descripcion;
+		data_newevent.finEvento = newevent.fecha; //newevent.fecha;
+		data_newevent.inicioEvento = newevent.fecha; //newevent.fecha;
+		data_newevent.tituloEvento =newevent.nombre;
+		data_newevent.idUsuario = $rootScope.session.getUser().idUsuario; 
+		data_newevent.idTipo = newevent.tipo.idTipo; 
+		data_newevent.idLugar= newevent.lugar.idLugar; 
 
           $http.post("http://localhost:8080/EventoUsachJava/eventos", data_newevent)
           .success(function(data, status) {
             
           });
-          $mdDialog.hide();
+          $mdDialog.hide();	
 
-
-					},
-					//failure
-					function(response){
-						
-					}
-				);
-			},
-			//failure:
-			function(response){
-				
-			}
-		);
-
-
-
-
-
-
-		
-
-
+          $location.path('/admin'); // si no es admin, lo tirar automagicamente a /user
 	};
 }); 

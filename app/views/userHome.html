@@ -8,8 +8,8 @@
 					</div>
 					<div style="float:left;padding-right: 0em;text-align:center">
 						<md-button ng-click="addMarker(evento.lat,evento.lng);details(evento.id)">Ver</md-button>
-						<md-button ng-if="!asiste(evento.id)" ng-click="suscribe(evento.id,true)">Asistir</md-button>
-						<md-button ng-if="asiste(evento.id)" ng-click="suscribe(evento.id,false)">Cancelar</md-button>
+						<md-button ng-if="!asiste(evento.idEvento)" ng-click="suscribe(evento.idEvento,true)">Asistir</md-button>
+						<md-button ng-if="asiste(evento.idEvento)" ng-click="desuscribe(evento.idEvento,false)">Cancelar</md-button>
 					</div>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
