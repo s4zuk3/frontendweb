@@ -1,6 +1,7 @@
 EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialog, $mdMedia,$location,$window){
 	$scope.admin=false;
 	$scope.logged=false;
+	$scope.vovler=false;
 	$scope.currentLocation = $location.path();
 	$scope.status = '  ';
 	$scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
@@ -53,23 +54,28 @@ EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialo
 		clearMap();
 		$rootScope.session.destroy();
 		$location.path('/');
+		$scope.currentLocation = $location.path();
 	};
 	$scope.administrar = function(){
 		clearMap();
 		$scope.admin=true;
 		$location.path('admin');
+		$scope.currentLocation = $location.path();
 	};
 	$scope.verComoUsuario = function(){
 		clearMap();
 		$scope.admin=false;
 		$location.path('/');
+		$scope.currentLocation = $location.path();
 	}
 	$scope.gestEventos = function(){
 		$location.path("admin/eventos");
+		$scope.currentLocation = $location.path();
 		// esta url debe cargar la vista "gestionarEventos.html"
 	}
 	$scope.gestUsuarios = function(){
-		$location.path("admin/eventos");
+		$location.path("admin/");
+		$scope.currentLocation = $location.path();
 		// esta vista va para el sprint 3
 	}
 	$scope.suscripciones = function(){

@@ -1,4 +1,4 @@
-var EventosUsach = angular.module('EventosUsach', ["ngRoute","ngMessages","ngMaterial"]);
+var EventosUsach = angular.module('EventosUsach', ["ngRoute","ngMessages","ngMaterial","mdPickers"]);
 EventosUsach.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 	when('/', {

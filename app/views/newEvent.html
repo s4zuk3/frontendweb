@@ -24,14 +24,21 @@
       				<md-option ng-value="tipo" ng-repeat="tipo in tipos">{{tipo.tipoEvento}}</md-option>
     			</md-select>
 
-
     			<md-select placeholder="Lugar" ng-model="newevent.lugar" ng-init="loadLugar()" style="min-width: 200px;">
       				<md-option ng-value="lugar" ng-repeat="lugar in lugares">{{lugar.nombreLugar}}</md-option>
     			</md-select>
-    			<h4>Fecha del evento</h4>
-				<md-datepicker ng-model="newevent.fecha" md-placeholder="Ingrese Fecha" md-min-date="minDate" md-max-date="maxDate">
-				</md-datepicker>
-
+    			<h4>Fecha de inicio del evento</h4>
+				<mdp-date-picker mdp-placeholder="Fecha de inicio del evento" mdp-format="DD/MM/YYYY" ng-model="newevent.inicio" mdp-min-date="minDate" mdp-max-date="maxDate">
+				</mdp-date-picker>
+    			<h4>Hora de inicio del evento</h4>
+				<mdp-time-picker mdp-placeholder="Hora de inicio del evento" ng-model="newevent.inicio">
+				</mdp-time-picker>
+    			<h4>Fecha de termino del evento</h4>
+				<mdp-date-picker mdp-placeholder="Fecha de inicio del evento" mdp-format="DD/MM/YYYY" ng-model="newevent.fin" mdp-min-date="minDate" mdp-max-date="maxDate">
+				</mdp-date-picker>
+    			<h4>Hora de termino del evento</h4>
+				<mdp-time-picker mdp-placeholder="Hora de inicio del evento" ng-model="newevent.fin">
+				</mdp-time-picker>
 			</form>
 		</div>
 	<md-dialog-actions layout="row">

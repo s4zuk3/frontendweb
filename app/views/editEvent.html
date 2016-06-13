@@ -26,9 +26,20 @@
     			<md-select placeholder="Lugar" ng-model="editevent.lugar" ng-init="loadLugar()" style="min-width: 200px;">
       				<md-option ng-value="lugar" ng-repeat="lugar in lugares" ng-selected="evento.nombreLugar==lugar.nombreLugar">{{lugar.nombreLugar}}</md-option>
     			</md-select>
-    			<h4>Fecha del evento</h4>
-				<md-datepicker ng-model="editevent.fecha" ng-init="evento.fecha" md-placeholder="{{ evento.fecha | date:'dd/MM/yyyy'}}" md-min-date="minDate" md-max-date="maxDate">
-				</md-datepicker>
+    			<h4>Inicio del evento</h4>
+				<mdp-date-picker mdp-placeholder="{{ editevent.fin | date:'dd/MM/yyyy'}}" mdp-format="DD/MM/YYYY" ng-model="editevent.inicio" mdp-min-date="minDate" mdp-max-date="maxDate">
+				</mdp-date-picker>
+    			<mdp-time-picker ng-model="editevent.inicio">
+				</mdp-time-picker>
+    			<h4>Termino del evento</h4>
+				<mdp-date-picker mdp-placeholder="{{ editevent.fin | date:'dd/MM/yyyy'}}" mdp-format="DD/MM/YYYY" ng-model="editevent.fin" mdp-min-date="minDate" mdp-max-date="maxDate">
+				</mdp-date-picker>
+    			<mdp-time-picker ng-model="editevent.fin">
+				</mdp-time-picker>
+				<h4>Estado del evento</h4>
+				<md-switch class="md-primary" ng-model="editevent.estado" aria-label="Switch 1">
+    			{{ editevent.estado === true ? "Habilitado" : "Deshabilitado" }}
+  				</md-switch>
 			</form>
 		</div>
 	<md-dialog-actions layout="row">

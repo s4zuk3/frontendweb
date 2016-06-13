@@ -23,7 +23,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 								while(i<$scope.eventos.length){
 									fecha = new Date($scope.eventos[i].inicioEvento);
 									diffDays = Math.ceil((hoy.getTime() - fecha.getTime())/ (1000 * 3600 * 24)); 
-									if(diffDays>0){
+									if(diffDays>0 || $scope.eventos[i].habilitado==false){
 										$scope.eventos.splice(i,1);
 									}else{
 										i++;
@@ -224,7 +224,9 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 								$scope.evento = response.data;
 								$scope.editevent.nombre = $scope.evento.tituloEvento;
 								$scope.editevent.descripcion = $scope.evento.descripcionEvento;
-								$scope.editevent.fecha = new Date($scope.evento.inicioEvento);	
+								$scope.editevent.inicio = new Date($scope.evento.inicioEvento);	
+								$scope.editevent.fin = new Date($scope.evento.finEvento);
+								$scope.editevent.estado = $scope.evento.habilitado;
 								$scope.evento.foto = tipos[$scope.evento.idTipo-1].tipoEvento;
 								$scope.evento.lat = lugares[$scope.evento.idLugar-1].latitud;
 								$scope.evento.lng = lugares[$scope.evento.idLugar-1].longitud;
@@ -263,12 +265,15 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 	$scope.details = function(id) {
 		titulo=$scope.eventos[id].titulo;
 		descripcion=$scope.eventos[id].descripcion;
-		fecha=new Date($scope.eventos[id].inicioEvento);
+		fechaInicio=new Date($scope.eventos[id].inicioEvento);
+		fechaFin=new Date($scope.eventos[id].finEvento);
 		contentString='<div style="font-size:12px;line-height:12px;color:#555;">'+
       '<span style="font-weight:bold;font-size:14px;">'+titulo+'<br/><br/></span>'+
       '<p>'+descripcion+'</p>'+
-      '<p>Fecha: '+fecha.toLocaleDateString()+'<br/>'+
-      'Hora: '+fecha.toLocaleTimeString()+'</p>'+
+      '<p>Inicio Evento:<br/>Fecha: '+fechaInicio.toLocaleDateString()+'<br/>'+
+      'Hora: '+fechaInicio.toLocaleTimeString()+'</p>'+
+      '<p>Fin Evento:<br/>Fecha: '+fechaFin.toLocaleDateString()+'<br/>'+
+      'Hora: '+fechaFin.toLocaleTimeString()+'</p>'+
       '</div>';
 		var infowindow = new google.maps.InfoWindow({
     		content: contentString,
@@ -385,17 +390,16 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 		}
 	};
 
-	$scope.create_event = function(newevent){
-		
+	$scope.create_event = function(newevent){		
 		var data_newevent = {};
 		data_newevent.descripcionEvento = newevent.descripcion;
-		data_newevent.finEvento = newevent.fecha; //newevent.fecha;
-		data_newevent.inicioEvento = newevent.fecha; //newevent.fecha;
+		data_newevent.finEvento = newevent.fin; //newevent.fecha;
+		data_newevent.inicioEvento = newevent.inicio; //newevent.fecha;
 		data_newevent.tituloEvento =newevent.nombre;
 		data_newevent.idUsuario = $rootScope.session.getUser().idUsuario; 
 		data_newevent.idTipo = newevent.tipo.idTipo; 
 		data_newevent.idLugar= newevent.lugar.idLugar;
-		data_newevent.habilitado = true;
+		data_newevent.habilitado = false;
 
           $http.post("http://localhost:8080/EventoUsachJava/eventos", data_newevent)
           .success(function(data, status) {
@@ -409,13 +413,13 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 		
 		var data_newevent = {};
 		data_newevent.descripcionEvento = newevent.descripcion;
-		data_newevent.finEvento = newevent.fecha; //newevent.fecha;
-		data_newevent.inicioEvento = newevent.fecha; //newevent.fecha;
+		data_newevent.finEvento = newevent.fin; //newevent.fecha;
+		data_newevent.inicioEvento = newevent.inicio; //newevent.fecha;
 		data_newevent.tituloEvento =newevent.nombre;
 		data_newevent.idUsuario = $rootScope.session.getUser().idUsuario; 
 		data_newevent.idTipo = newevent.tipo.idTipo; 
 		data_newevent.idLugar= newevent.lugar.idLugar;
-		data_newevent.habilitado = true; 
+		data_newevent.habilitado = newevent.estado; 
 		var url_edit = "http://localhost:8080/EventoUsachJava/eventos/"+$rootScope.editEvent;
           $http.put(url_edit, data_newevent)
           .success(function(data, status) {

@@ -10,7 +10,7 @@
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-    <link rel="stylesheet" href="bower_components/angular-material-datetimepicker/css/material-datetimepicker.min.css" />
+  <link rel="stylesheet" href="bower_components/mdPickers/dist/mdPickers.min.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -51,34 +51,33 @@
 <md-content ng-cloak>
 <!-- Header -->
 <md-toolbar ng-controller="headerController">
-  <div ng-if="!auth.isLoggedIn()" class="md-toolbar-tools">
-    <span class="titleA">Eventos</span> <span class="titleB">Usach</span>
-    <span flex=""></span>
-    <md-button class="md-secondary" aria-label="Home" ng-click="home()">
-      <span class="glyphicon glyphicon-user"></span>
-      Invitado
-    </md-button>
-    <md-button class="md-raised" aria-label="Registrarse" ng-click="showRegister($event)">
-      Registrarse
-    </md-button>
-    <md-button class="md-raised" aria-label="Iniciar Sesión" ng-click="showLogin($event)">
-      Iniciar Sesión
-    </md-button>
-  </div>
-  <div ng-if="!auth.isLoggedIn()" class="md-toolbar-tools" style="height:24px;background:#FFF;">
-    <span flex=""></span>
-  </div>
-  <div ng-if="auth.isLoggedIn()" class="md-toolbar-tools">
-    <span class="titleA">Eventos</span> <span class="titleB">Usach</span>
+  <div class="md-toolbar-tools">
+    <a ng-go-click="/">
+      <span class="titleA">Eventos</span> <span class="titleB">Usach</span>
+    </a>
     <span ng-if="admin">&nbsp; &nbsp; Panel de Administración</span>
     <span flex=""></span>
-    <md-button class="md-secondary" aria-label="Home" ng-click="home()">
-      <span class="glyphicon glyphicon-user"></span>
-      {{ session.getUser().nombreUsuario }} {{ session.getUser().apellidoUsuario }}
-    </md-button>
-    <md-button class="md-icon-button" aria-label="Logout" ng-click="logout($)">
-      <span class="glyphicon glyphicon-log-out"></span>
-    </md-button>
+    <div ng-if="!auth.isLoggedIn()">
+      <md-button class="md-secondary" aria-label="Home" ng-click="home()">
+        <span class="glyphicon glyphicon-user"></span>
+        Invitado
+      </md-button>
+      <md-button class="md-raised" aria-label="Registrarse" ng-click="showRegister($event)">
+        Registrarse
+      </md-button>
+      <md-button class="md-raised" aria-label="Iniciar Sesión" ng-click="showLogin($event)">
+        Iniciar Sesión
+      </md-button>
+    </div>
+    <div ng-if="auth.isLoggedIn()">
+      <md-button class="md-secondary" aria-label="Home" ng-go-click="/">
+        <span class="glyphicon glyphicon-user"></span>
+        {{ session.getUser().nombreUsuario }} {{ session.getUser().apellidoUsuario }}
+      </md-button>
+      <md-button class="md-icon-button" aria-label="Logout" ng-click="logout($)">
+        <span class="glyphicon glyphicon-log-out"></span>
+      </md-button>
+    </div>
   </div>
   <div ng-if="auth.isLoggedIn() && admin" class="md-toolbar-tools" style="height:24px;background:#FFF;">
     <span flex=""></span>
@@ -143,9 +142,8 @@
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-material/angular-material.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/momentjs/min/moment.min.js"></script>
-<script src="bower_components/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js"></script>
-
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/mdPickers/dist/mdPickers.min.js"></script>
 <!-- endbower -->
   <!-- endbuild -->
 
