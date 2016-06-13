@@ -22,6 +22,17 @@ EventosUsach.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'views/userHome.html',
 		controller: 'UserController'
 	}).
+	when('/user/eventos', {
+		resolve: {
+			"check": function($location,$rootScope){
+				if(!$rootScope.auth.isLoggedIn()){
+					$location.path('/');
+				}
+			}	
+		},
+		templateUrl: 'views/eventosUsuario.html',
+		controller: 'UserController'
+	}).
 	when('/admin', {
 		resolve: {
 			"check": function($location,$rootScope){
@@ -37,6 +48,23 @@ EventosUsach.config(['$routeProvider', function($routeProvider) {
 			}	
 		},
 		templateUrl: 'views/adminHome.html',
+		controller: 'AdminController'
+	}).
+	when('/admin/eventos', {
+		resolve: {
+			"check": function($location,$rootScope){
+				if(!$rootScope.auth.isLoggedIn()){ // Si no esta logeado goHome
+					$location.path('/');
+				}
+				else // si esta logeado ver si es admin
+				{
+					if(!$rootScope.auth.isAdmin()){
+						$location.path('/user');
+					} 
+				}
+			}	
+		},
+		templateUrl: 'views/gestionarEventos.html',
 		controller: 'AdminController'
 	}).
 	otherwise({

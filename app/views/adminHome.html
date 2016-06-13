@@ -3,8 +3,8 @@
 				<md-list-item class="md-2-line" ng-repeat="evento in eventos">
 					<img ng-src="img/icons/{{evento.foto}}.png" class="face" alt="{{evento.foto}}" ng-cloak>
 					<div class="md-list-item-text" style="float:left;width:80%;text-align:justify;">
-						<h3>{{evento.tituloEvento}}</h3>
-						<p>{{evento.descripcionEvento}}</p>
+						<h3>{{evento.titulo}}</h3>
+						<p>{{evento.descripcion}}</p>
 					</div>
 					<div style="float:left;padding-right: 0em;text-align:center">
 						<md-button ng-click="addMarker(evento.lat,evento.lng);details(evento.id)">Ver</md-button>	

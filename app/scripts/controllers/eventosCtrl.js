@@ -163,16 +163,20 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 											eventos = response.data;
 											$scope.eventos=[];
 											i=0;
+											j=0;
 											for(evento in eventos){
 												if(eventosUsuario.indexOf(eventos[i].idEvento)!=-1){
-													$scope.eventos[i].foto = tipos[eventos[i].idTipo-1].tipoEvento;
-													$scope.eventos[i].lat = lugares[eventos[i].idLugar-1].latitud;
-													$scope.eventos[i].lng = lugares[eventos[i].idLugar-1].longitud;
-													$scope.eventos[i].nombreLugar = lugares[eventos[i].idLugar-1].nombreLugar;
-													$scope.eventos[i].fechaEvento = eventos[i].fechaEvento;
-													$scope.eventos[i].titulo = eventos[i].tituloEvento;
-													$scope.eventos[i].descripcion = eventos[i].descripcionEvento;
-													$scope.eventos[i].id=i++;													
+													var event = eventos[i];
+													event.foto = tipos[eventos[i].idTipo-1].tipoEvento;
+													event.lat = lugares[eventos[i].idLugar-1].latitud;
+													event.lng = lugares[eventos[i].idLugar-1].longitud;
+													event.nombreLugar = lugares[eventos[i].idLugar-1].nombreLugar;
+													event.fechaEvento = eventos[i].fechaEvento;
+													event.titulo = eventos[i].tituloEvento;
+													event.descripcion = eventos[i].descripcionEvento;
+													event.id=j++;
+													i++;
+													$scope.eventos.push(event);													
 												}else{i++;}
 											}
 										},
