@@ -14,27 +14,27 @@
 				<p>Por favor ingrese los datos del evento.</p>
 				<md-input-container flex class="md-block">
 					<label>{{evento.tituloEvento}}</label>
-					<input ng-model="newevent.nombre" required>
+					<input ng-model="editevent.nombre" required>
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>{{evento.descripcionEvento}}</label>
-					<input ng-model="newevent.descripcion" required>
+					<input ng-model="editevent.descripcion" required>
 				</md-input-container>
-				<md-select placeholder="Tipo de Evento" ng-model="newevent.tipo" ng-init="loadTipo()" style="min-width: 200px;">
+				<md-select placeholder="Tipo de Evento" ng-model="editevent.tipo" ng-init="loadTipo()" style="min-width: 200px;">
       				<md-option ng-value="tipo" ng-repeat="tipo in tipos" ng-selected="evento.foto==tipo.tipoEvento">{{tipo.tipoEvento}}</md-option>
     			</md-select>
-    			<md-select placeholder="Lugar" ng-model="newevent.lugar" ng-init="loadLugar()" style="min-width: 200px;">
+    			<md-select placeholder="Lugar" ng-model="editevent.lugar" ng-init="loadLugar()" style="min-width: 200px;">
       				<md-option ng-value="lugar" ng-repeat="lugar in lugares" ng-selected="evento.nombreLugar==lugar.nombreLugar">{{lugar.nombreLugar}}</md-option>
     			</md-select>
     			<h4>Fecha del evento</h4>
-				<md-datepicker ng-model="newevent.fecha" ng-init="evento.fecha" md-placeholder="Ingrese Fecha" md-min-date="minDate" md-max-date="maxDate">
+				<md-datepicker ng-model="editevent.fecha" ng-init="evento.fecha" md-placeholder="{{ evento.fecha | date:'dd/MM/yyyy'}}" md-min-date="minDate" md-max-date="maxDate">
 				</md-datepicker>
 			</form>
 		</div>
 	<md-dialog-actions layout="row">
 		<span flex></span>
-		<md-button ng-click="answer(newuser)">
-			Registrar Evento
+		<md-button ng-click="edit_event(editevent)">
+			Terminar edición
 		</md-button>
 	</md-dialog-actions>
 </md-dialog>

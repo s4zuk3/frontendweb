@@ -1,6 +1,7 @@
 EventosUsach.controller('EventosController', function($scope,$http,$location,$templateCache,$window,$rootScope,$mdDialog, $mdMedia) {
 	auth = $rootScope.auth;
 	session = $rootScope.session;
+	$scope.editevent = {}
 	hoy = new Date();
 	$scope.alert = function(t){$window.alert(t);}
 	$scope.obtener = function(){
@@ -215,7 +216,11 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 						$http.get('http://localhost:8080/EventoUsachJava/eventos/'+idE).then(
 							//success:
 							function(response){
+								
 								$scope.evento = response.data;
+								$scope.editevent.nombre = $scope.evento.tituloEvento;
+								$scope.editevent.descripcion = $scope.evento.descripcionEvento;
+								$scope.editevent.fecha = new Date($scope.evento.inicioEvento);	
 								$scope.evento.foto = tipos[$scope.evento.idTipo-1].tipoEvento;
 								$scope.evento.lat = lugares[$scope.evento.idLugar-1].latitud;
 								$scope.evento.lng = lugares[$scope.evento.idLugar-1].longitud;
@@ -272,7 +277,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 	$scope.edit = function(id){
 		if(auth.isLoggedIn() && auth.isAdmin()){
 			var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-			$rootScope.editEvent = id+1;
+			$rootScope.editEvent = id;
 			(function(ev){
 				$mdDialog.show({
 					templateUrl: 'views/editEvent.html',
@@ -360,14 +365,33 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 		data_newevent.tituloEvento =newevent.nombre;
 		data_newevent.idUsuario = $rootScope.session.getUser().idUsuario; 
 		data_newevent.idTipo = newevent.tipo.idTipo; 
-		data_newevent.idLugar= newevent.lugar.idLugar; 
+		data_newevent.idLugar= newevent.lugar.idLugar;
+		data_newevent.habilitado = true;
 
           $http.post("http://localhost:8080/EventoUsachJava/eventos", data_newevent)
           .success(function(data, status) {
-            
+            $location.path('/admin'); // si no es admin, lo tirar automagicamente a /user
           });
           $mdDialog.hide();	
 
-          $location.path('/admin'); // si no es admin, lo tirar automagicamente a /user
+          
+	};
+	$scope.edit_event = function(newevent){
+		
+		var data_newevent = {};
+		data_newevent.descripcionEvento = newevent.descripcion;
+		data_newevent.finEvento = newevent.fecha; //newevent.fecha;
+		data_newevent.inicioEvento = newevent.fecha; //newevent.fecha;
+		data_newevent.tituloEvento =newevent.nombre;
+		data_newevent.idUsuario = $rootScope.session.getUser().idUsuario; 
+		data_newevent.idTipo = newevent.tipo.idTipo; 
+		data_newevent.idLugar= newevent.lugar.idLugar;
+		data_newevent.habilitado = true; 
+		var url_edit = "http://localhost:8080/EventoUsachJava/eventos/"+$rootScope.editEvent;
+          $http.put(url_edit, data_newevent)
+          .success(function(data, status) {
+          		//$scope.obtener() // no funciona ni con esto :( la ultima opcion es refreshear lapagina.
+          });
+          $mdDialog.hide();	
 	};
 }); 
