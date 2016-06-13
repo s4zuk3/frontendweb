@@ -332,7 +332,32 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 	}
 	$scope.desuscribe = function(id,asistir){
 		if(auth.isLoggedIn()){
-			
+
+		$http.get("http://localhost:8080/EventoUsachJava/eventosusuarios")
+          .then(function(response) {
+
+          		var eventosu = response.data;
+          		//alert(JSON.stringify(response.data))
+          		var id_user_event = 0;
+          		i=0
+          		for( e in eventosu ){
+          			//alert(eventosu[i].idEvento+"/"+id+" - "+eventosu[i].idUsuario+"/"+$rootScope.session.getUser().idUsuario);
+
+          			if(eventosu[i].idEvento == id && eventosu[i].idUsuario == $rootScope.session.getUser().idUsuario){
+          				id_user_event = eventosu[i].idEventoUsuario;
+          				break;
+          			}
+          			i++;
+          		}
+
+          		var url = "http://localhost:8080/EventoUsachJava/eventosusuarios/eliminar/"+id_user_event;
+			$http.get(url)
+          .then(function(data, status) {
+          		$location.path('/'); // si no es admin, lo tirar automagicamente a /user
+          });
+
+          });	
+		
 		}else{
 			return null;
 		}
