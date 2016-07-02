@@ -74,6 +74,9 @@
         <span class="glyphicon glyphicon-user"></span>
         {{ session.getUser().nombreUsuario }} {{ session.getUser().apellidoUsuario }}
       </md-button>
+      <md-button class="md-icon-button" aria-label="Settings" ng-click="settings($event)">
+        <span class="glyphicon glyphicon-wrench"></span>
+      </md-button>
       <md-button class="md-icon-button" aria-label="Logout" ng-click="logout($)">
         <span class="glyphicon glyphicon-log-out"></span>
       </md-button>
@@ -158,6 +161,7 @@
   <script src="scripts/controllers/homeCtrl.js"></script>
   <script src="scripts/controllers/locinCtrl.js"></script>
   <script src="scripts/controllers/registerCtrl.js"></script>
+  <script src="scripts/controllers/settingsCtrl.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
   <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-NfZYvTZcPfnNewL-sU5B9OmRaFCJa1I&callback=initMap" async defer></script>

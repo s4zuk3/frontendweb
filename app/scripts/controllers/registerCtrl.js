@@ -39,8 +39,6 @@ EventosUsach.controller('registerController',function($scope,$rootScope,$mdDialo
   		$scope.newuser.notmatch = true;
   		return;
   	}
-  	$rootScope.auth.register($scope.newuser,answer,$mdDialog);
-  	
-    
+  	$rootScope.auth.register($scope.newuser,answer,$mdDialog);    
   };
 });

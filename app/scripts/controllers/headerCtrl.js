@@ -1,4 +1,4 @@
-EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialog, $mdMedia,$location,$window){
+EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialog, $mdMedia,$location,$window, $mdToast){
 	$scope.admin=false;
 	$scope.logged=false;
 	$scope.vovler=false;
@@ -55,6 +55,7 @@ EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialo
 		$rootScope.session.destroy();
 		$location.path('/');
 		$scope.currentLocation = $location.path();
+		$mdToast.show($mdToast.simple().textContent('Sesión cerrada').hideDelay(2000).position('bottom left'));
 	};
 	$scope.administrar = function(){
 		clearMap();
@@ -81,6 +82,21 @@ EventosUsach.controller('headerController',function($rootScope, $scope, $mdDialo
 	$scope.suscripciones = function(){
 		$location.path("user/eventos");
 		// esta url debe cargar la vista "eventosUsuario.html"
+	}
+	$scope.settings = function(ev){
+		var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+		$mdDialog.show({
+			templateUrl: 'views/settings.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: useFullScreen
+		});
+		$scope.$watch(function() {
+			return $mdMedia('xs') || $mdMedia('sm');
+		}, function(wantsFullScreen) {
+			$scope.customFullscreen = (wantsFullScreen === true);
+		});
 	}
 });
 
