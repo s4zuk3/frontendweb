@@ -1,0 +1,15 @@
+		<md-content ng-controller="settingsController">
+			<md-list ng-init="obtenerAll()">
+				<md-list-item class="md-2-line" ng-repeat="usuario in usuarios">
+				    <div class="md-list-item-text" style="float:left;width:80%;text-align:justify;">
+						<h3><span class="glyphicon glyphicon-user"></span> {{usuario.nombreUsuario+" "+usuario.apellidoUsuario}}</h3>
+						<p>{{usuario.correoUsuario}}</p>
+					</div>
+					<div style="float:left;padding-right: 0em;text-align:center">
+						<md-button style="background-color:#EE3333;color:#FFF;" ng-if="habilitado($index)" ng-click="deshabilitar(usuario.idUsuario)">Deshabilitar Cuenta</md-button>
+						<md-button style="background-color:#00AA00;color:#FFF;" ng-if="!habilitado($index)" ng-click="habilitar(usuario.idUsuario)">Habilitar Cuenta</md-button>
+					</div>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</md-list>
+		</md-content>

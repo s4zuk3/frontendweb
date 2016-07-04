@@ -67,6 +67,23 @@ EventosUsach.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'views/gestionarEventos.html',
 		controller: 'AdminController'
 	}).
+	when('/admin/usuarios', {
+		resolve: {
+			"check": function($location,$rootScope){
+				if(!$rootScope.auth.isLoggedIn()){ // Si no esta logeado goHome
+					$location.path('/');
+				}
+				else // si esta logeado ver si es admin
+				{
+					if(!$rootScope.auth.isAdmin()){
+						$location.path('/user');
+					} 
+				}
+			}	
+		},
+		templateUrl: 'views/gestionarUsuarios.html',
+		controller: 'AdminController'
+	}).
 	otherwise({
 		redirectTo: '/'
 	});

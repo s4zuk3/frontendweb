@@ -50,7 +50,7 @@
 <body ng-app="EventosUsach">
 <md-content ng-cloak>
 <!-- Header -->
-<md-toolbar ng-controller="headerController">
+<md-toolbar ng-controller="headerController" ng-init="checkLoc()">
   <div class="md-toolbar-tools">
     <a ng-go-click="/">
       <span class="titleA">Eventos</span> <span class="titleB">Usach</span>
