@@ -58,10 +58,10 @@ EventosUsach.service('auth',['$http', 'session', '$location',
       		if(data[i].correoUsuario == credentials.user && data[i].contrasenhaUsuario == credentials.password){
       			// Credenciales correctas
             if(data[i].idTipoEstado == 2){
-              $mdToast.show($mdToast.simple().textContent('Cuenta desabilitada, favor contactar con un administrador.').hideDelay(5000).position('bottom left'));
+              $mdToast.show($mdToast.simple().textContent('Cuenta desabilitada, favor contactar con un administrador.').hideDelay(1500).position('bottom left'));
               return;
             }else if(data[i].idTipoEstado == 3){
-              $mdToast.show($mdToast.simple().textContent('Cuenta bloqueada, favor contactar con un administrador.').hideDelay(5000).position('bottom left'));
+              $mdToast.show($mdToast.simple().textContent('Cuenta bloqueada, favor contactar con un administrador.').hideDelay(1500).position('bottom left'));
               return;
             }
             credentials.error = false;
@@ -71,6 +71,7 @@ EventosUsach.service('auth',['$http', 'session', '$location',
               session.setAdmin(data[i]);
             }
             $location.path('/user'); // Coloque un boton en la vista user en vez de tirar directo a /admin
+            $mdToast.show($mdToast.simple().textContent('Sesión iniciada.').hideDelay(1500).position('bottom left'));
       		}
           else
           { //Credenciales invalidas
@@ -80,7 +81,7 @@ EventosUsach.service('auth',['$http', 'session', '$location',
 
       	});
     };
-     this.register = function(newuser,answer,$mdDialog){
+     this.register = function(newuser,answer,$mdDialog,$mdToast){
       return $http
         .get('http://localhost:8080/EventoUsachJava/usuarios')
         .then(function(response){
@@ -114,6 +115,7 @@ EventosUsach.service('auth',['$http', 'session', '$location',
             session.setUser(data_newuser); //Dejarlo logeado una vez creada al cuenta.
             $location.path('/user');
             $mdDialog.hide(answer);
+            $mdToast.show($mdToast.simple().textContent('Usuario creado exitosamente. Sesión iniciada.').hideDelay(1500).position('bottom left'));
           });
           
         });

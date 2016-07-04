@@ -1,4 +1,4 @@
-EventosUsach.controller('EventosController', function($scope,$http,$location,$templateCache,$window,$rootScope,$mdDialog, $mdMedia) {
+EventosUsach.controller('EventosController', function($scope,$http,$location,$templateCache,$window,$rootScope,$mdDialog, $mdMedia,$mdToast) {
 	auth = $rootScope.auth;
 	session = $rootScope.session;
 	$scope.editevent = {}
@@ -439,6 +439,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
           $http.post("http://localhost:8080/EventoUsachJava/eventos", data_newevent)
           .success(function(data, status) {
             $location.path('/admin'); // si no es admin, lo tirar automagicamente a /user
+			$mdToast.show($mdToast.simple().textContent('Evento Creado Exitosamente.').hideDelay(1500).position('bottom left'));
           });
           $mdDialog.hide();	
 
@@ -459,6 +460,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
           $http.put(url_edit, data_newevent)
           .success(function(data, status) {
           		//$scope.obtener() // no funciona ni con esto :( la ultima opcion es refreshear lapagina.
+				$mdToast.show($mdToast.simple().textContent('Evento Editado Exitosamente.').hideDelay(1500).position('bottom left'));
           });
           $mdDialog.hide();	
 	};

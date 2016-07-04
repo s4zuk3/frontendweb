@@ -7,9 +7,9 @@
 						<p>{{evento.descripcion}}</p>
 					</div>
 					<div style="float:left;padding-right: 0em;text-align:center">
-						<md-button ng-click="addMarker(evento.lat,evento.lng);details(evento.id)">Ver</md-button>
-						<md-button style="background-color:#00AA00;border-color:#000000;" ng-if="!asiste(evento.idEvento)" ng-click="suscribe(evento.idEvento,true)">Asistir</md-button>
-						<md-button style="background-color:#EE3333;border-color:#000000;" ng-if="asiste(evento.idEvento)" ng-click="desuscribe(evento.idEvento,false)">Cancelar</md-button>
+						<md-button ng-click="addMarker(evento.lat,evento.lng);details(evento.id)" style="background-color:#EEE">Ver</md-button>
+						<md-button style="background-color:#00AA00;color:#FFF;" ng-if="!asiste(evento.idEvento)" ng-click="suscribe(evento.idEvento,true)">Asistir</md-button>
+						<md-button style="background-color:#EE3333;color:#FFF;" ng-if="asiste(evento.idEvento)" ng-click="desuscribe(evento.idEvento,false)">Cancelar</md-button>
 					</div>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>

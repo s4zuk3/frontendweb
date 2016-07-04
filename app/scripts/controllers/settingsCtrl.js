@@ -90,7 +90,7 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 							$rootScope.session.destroy();
 							$location.path('/');
 							$scope.currentLocation = $location.path();
-							$mdToast.show($mdToast.simple().textContent('Sesión cerrada').hideDelay(2000).position('bottom left'));
+							$mdToast.show($mdToast.simple().textContent('Usuario Deshabilitado.').hideDelay(1500).position('bottom left'));
 							$mdDialog.cancel();
 				           });
 					}
@@ -116,7 +116,7 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 				//alert(JSON.stringify(edit_user));
 				$http.put(url_edit, edit_user)
 				.success(function(data, status) {
-					$mdToast.show($mdToast.simple().textContent('Usuario Deshabilitado').hideDelay(1000).position('bottom left'));
+					$mdToast.show($mdToast.simple().textContent('Usuario Deshabilitado.').hideDelay(1500).position('bottom left'));
 					$scope.usuarios=null;
 					$scope.obtenerAll();
 				});
@@ -142,7 +142,7 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 				edit_user.idTipoEstado = flag;
 				$http.put(url_edit, edit_user)
 				.success(function(data, status) {
-					$mdToast.show($mdToast.simple().textContent('Usuario Habilitado').hideDelay(1000).position('bottom left'));
+					$mdToast.show($mdToast.simple().textContent('Usuario Habilitado.').hideDelay(1500).position('bottom left'));
 					$scope.usuarios=null;
 					$scope.obtenerAll();
 				});
@@ -181,6 +181,7 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 		}
     	$mdDialog.cancel();
     	$location.path($location.path()+"/");
+		$mdToast.show($mdToast.simple().textContent('Preferencias Actualizadas.').hideDelay(1500).position('bottom left'));
 	}
 
 	$scope.cancel = function() {
