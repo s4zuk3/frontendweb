@@ -12,22 +12,24 @@
 		<div class="md-dialog-content">
 			<form ng-submit="$event.preventDefault()" name="searchForm">
 				<span flex>Preferencia de eventos.</span>
-				<md-list-item ng-repeat="tipo in tipos">
-					<md-checkbox ng-model="credentials.box" aria-label="tipo.tipoEvento" class="md-primary md-align-top-left"></md-checkbox>{{tipo.tipoEvento}}<br/>
-           		</md-list-item>
+				<fieldset class="standard">
+					<div ng-repeat="tipo in tipos" flex>
+						<md-checkbox ng-model="pref_user[$index]" md-no-ink aria-label="tipo.tipoEvento" class="md-primary">{{tipo.tipoEvento}}</md-checkbox>
+					</div>
+           		</fieldset>
            		<hr/>
 				<span>Cambiar contraseña</span>
 				<md-input-container flex class="md-block">
 					<label>Contraseña antigua</label>
-					<input type="password" ng-model="credentials.oldpassword">
+					<input type="password" ng-model="pss.oldpassword">
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Nueva contraseña</label>
-					<input type="password" ng-model="credentials.newpassword">
+					<input type="password" ng-model="pss.newpassword">
 				</md-input-container>
 				<md-input-container flex class="md-block">
 					<label>Repetir nueva contraseña</label>
-					<input type="password" ng-model="credentials.newpasswordrep">
+					<input type="password" ng-model="pss.newpasswordrep">
 				</md-input-container>
 			</form>
 			<div class="alert alert-danger" role="alert" ng-show="credentials.error">
@@ -41,7 +43,7 @@
 		<md-button type="submit" ng-click="deshabilitar()" style="color:#FFF;background-color:#900">
 			Deshabilitar Cuenta
 		</md-button>
-		<md-button type="submit" ng-click="edit()" style="color:#FFF;background-color:#090">
+		<md-button type="submit" ng-click="edit(prefiere,pss)" style="color:#FFF;background-color:#090">
 			Ingresar
 		</md-button>
 	</md-dialog-actions>

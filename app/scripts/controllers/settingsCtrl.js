@@ -1,21 +1,17 @@
 EventosUsach.controller('settingsController', function($scope,$http,$location,$templateCache,$window,$rootScope,$mdDialog, $mdMedia,$mdToast) {
 	auth = $rootScope.auth;
 	session = $rootScope.session;
+	$scope.pref_user = [];			
 	$scope.alert = function(t){$window.alert(t);}
-	$scope.getCheck = function(t){
-		while(i<$scope.preferencias.length){
-			if($scope.preferencias[i++].idTipo == t ){
-				return true;
-			}
-		}
-		return false;
-	};
 	$scope.obtener = function(){
 		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(
 			//success:
 			function(response){
 				$scope.tipos = response.data;
 				var tipos = response.data;
+				i=0;
+				while(i<tipos.length)$scope.pref_user[i++]=false;
+
 				$http.get('http://localhost:8080/EventoUsachJava/usuarios/'+session.getUser().idUsuario).then(
 					//success:
 					function(response){
@@ -26,15 +22,16 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 							//success:
 							function(response){
 								$scope.preferencias = response.data;
-								var pref_user = [];
+								$scope.preferenciasDelUsuario = [];
 								i=0;
+								j=0;
 								while(i<$scope.preferencias.length){
 										if($scope.preferencias[i].idUsuario == session.getUser().idUsuario ){
-											pref_user.push($scope.preferencias[i]);
+											$scope.preferenciasDelUsuario[j++]=$scope.preferencias[i].idPreferencia;
+											$scope.pref_user[$scope.preferencias[i].idTipo-1]=true;
 										}
 										i++;
 								}
-								$scope.preferencias = pref_user;
 							},
 							//failure:
 							function(response){
@@ -156,8 +153,37 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 		return $scope.usuarios[idx].idTipoEstado==1;
 	}
 
-	$scope.edit = function(data){
-
+	$scope.edit = function(prefs,pss){
+		// borro todas las preferencias anteriores del usuario, y luego inserto las nuevas
+		i=0;
+		while(i<$scope.preferenciasDelUsuario.length){
+			$http.get('http://localhost:8080/EventoUsachJava/preferencias/eliminar/'+$scope.preferenciasDelUsuario[i++])
+			.then(
+				function(response){
+					// todo ok?
+				}
+			);
+		}
+		// ahora inserto las nuevas
+		i=0;
+		while(i<$scope.pref_user.length){
+			if($scope.pref_user[i++]==true){
+				var data_newPref = {};
+				data_newPref.idTipo=i;
+				data_newPref.idUsuario=session.getUser().idUsuario;
+				$http.post('http://localhost:8080/EventoUsachJava/preferencias',data_newPref)
+				.success(
+					function(response){
+						// todo ok?
+					}
+				);				
+			}
+		}
+    	$mdDialog.cancel();
 	}
+
+	$scope.cancel = function() {
+    	$mdDialog.cancel();
+  	};
 
 }); 
