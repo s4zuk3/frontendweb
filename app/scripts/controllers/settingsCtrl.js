@@ -4,6 +4,16 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 	$scope.editevent = {}
 	hoy = new Date();
 	$scope.alert = function(t){$window.alert(t);}
+	$scope.getCheck = function(t){
+		while(i<$scope.preferencias.length){
+				if($scope.preferencias[i].idTipo == t ){
+											return true;
+					}
+				i++;
+		}
+		return false;
+	};
+
 	$scope.obtener = function(){
 		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(
 			//success:
@@ -20,54 +30,17 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 							//success:
 							function(response){
 								$scope.preferencias = response.data;
+								var pref_user = [];
 								i=0;
-								while(i<$scope.eventos.length){
-									fecha = new Date($scope.eventos[i].inicioEvento);
-									diffDays = Math.ceil((hoy.getTime() - fecha.getTime())/ (1000 * 3600 * 24)); 
-									if(diffDays>0 || $scope.eventos[i].habilitado==false){
-										$scope.eventos.splice(i,1);
-									}else{
-										i++;
-									}
-								}
-								var eventos = $scope.eventos;
-								i=0;
-								for(evento in eventos){
-									$scope.eventos[i].foto = tipos[eventos[i].idTipo-1].tipoEvento;
-									$scope.eventos[i].lat = lugares[eventos[i].idLugar-1].latitud;
-									$scope.eventos[i].lng = lugares[eventos[i].idLugar-1].longitud;
-									$scope.eventos[i].nombreLugar = lugares[eventos[i].idLugar-1].nombreLugar;
-									$scope.eventos[i].fechaEvento = eventos[i].fechaEvento;
-									$scope.eventos[i].titulo = eventos[i].tituloEvento;
-									$scope.eventos[i].descripcion = eventos[i].descripcionEvento;
-									$scope.eventos[evento].id=i++;
-
-								}
-								if(auth.isLoggedIn()){
-									$http.get('http://localhost:8080/EventoUsachJava/eventosusuarios').then(
-										//success:
-										function(response){
-											eventosUsuario=response.data;
-											$scope.eventosUsuario=[];
-											var even = [];
-											i=0;
-											for(eventousuario in eventosUsuario){
-												if(eventosUsuario[i].idUsuario==session.getUser().idUsuario){
-													//$scope.eventos[eventosUsuario[i].idEvento].asisto = true;
-													even.push(eventosUsuario[i].idEvento);
-													$scope.eventosUsuario.push(eventosUsuario[i].idEvento);
-												}
-												i++;
-											}
-											eventosUsuario=$scope.eventosUsuario;
-											$rootScope.even = even;
-										},
-										//failure:
-										function(response){
-											//
+								while(i<$scope.preferencias.length){
+										if($scope.preferencias[i].idUsuario == session.getUser().idUsuario ){
+											pref_user.push($scope.preferencias[i]);
 										}
-									);
+										i++;
 								}
+								$scope.preferencias = pref_user;
+								
+							
 							},
 							//failure:
 							function(response){

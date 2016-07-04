@@ -13,8 +13,8 @@
 			<form ng-submit="$event.preventDefault()" name="searchForm">
 				<p>Preferencia de eventos.</p>
 				<md-list-item ng-repeat="tipo in tipos">
-					<md-checkbox ng-model="settings.tipos" aria-label="tipo.tipoEvento" class="md-primary md-align-top-left" flex>{{tipo.tipoEvento}}<br/>
-            	</md-checkbox>
+					<md-checkbox ng-model="credentials.box" aria-label="tipo.tipoEvento" class="md-primary md-align-top-left" flex></md-checkbox>{{tipo.tipoEvento}}<br/>
+            		</md-list-item>
 				<p>Cambiar contraseña</p>
 				<md-input-container flex class="md-block">
 					<label>Contraseña antigua</label>
