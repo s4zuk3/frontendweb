@@ -36,7 +36,7 @@ EventosUsach.service('auth',['$http', 'session', '$location',
     this.isAdmin = function isAdmin(){
       return session.isAdmin();
     };
-    this.logIn = function(credentials,answer,$mdDialog){
+    this.logIn = function(credentials,answer,$mdDialog,$mdToast){
       return $http
       	.get('http://localhost:8080/EventoUsachJava/usuarios')
       	.then(function(response){
@@ -57,6 +57,13 @@ EventosUsach.service('auth',['$http', 'session', '$location',
           }
       		if(data[i].correoUsuario == credentials.user && data[i].contrasenhaUsuario == credentials.password){
       			// Credenciales correctas
+            if(data[i].idTipoEstado == 2){
+              $mdToast.show($mdToast.simple().textContent('Cuenta desabilitada, favor contactar con un administrador.').hideDelay(5000).position('bottom left'));
+              return;
+            }else if(data[i].idTipoEstado == 3){
+              $mdToast.show($mdToast.simple().textContent('Cuenta bloqueada, favor contactar con un administrador.').hideDelay(5000).position('bottom left'));
+              return;
+            }
             credentials.error = false;
             session.setUser(data[i]);
             $mdDialog.hide(answer);

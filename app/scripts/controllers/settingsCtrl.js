@@ -1,4 +1,4 @@
-EventosUsach.controller('settingsController', function($scope,$http,$location,$templateCache,$window,$rootScope,$mdDialog, $mdMedia) {
+EventosUsach.controller('settingsController', function($scope,$http,$location,$templateCache,$window,$rootScope,$mdDialog, $mdMedia,$mdToast) {
 	auth = $rootScope.auth;
 	session = $rootScope.session;
 	$scope.editevent = {}
@@ -420,11 +420,16 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 						edit_user.idUsuario = user.idUsuario;
 						edit_user.nombreUsuario = user.nombreUsuario;
 						edit_user.idTipoEstado = flag;
-						alert(JSON.stringify(edit_user));
+						//alert(JSON.stringify(edit_user));
 						  $http.put(url_edit, edit_user)
 				          .success(function(data, status) {
-				          		//$scope.obtener() // no funciona ni con esto :( la ultima opcion es refreshear lapagina.
-				          });
+				          	clearMap();
+							$rootScope.session.destroy();
+							$location.path('/');
+							$scope.currentLocation = $location.path();
+							$mdToast.show($mdToast.simple().textContent('Sesión cerrada').hideDelay(2000).position('bottom left'));
+							$mdDialog.cancel();
+				           });
 					}
 				);
 	}
@@ -445,10 +450,9 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 						edit_user.idUsuario = user.idUsuario;
 						edit_user.nombreUsuario = user.nombreUsuario;
 						edit_user.idTipoEstado = flag;
-						alert(JSON.stringify(edit_user));
+						//alert(JSON.stringify(edit_user));
 						  $http.put(url_edit, edit_user)
 				          .success(function(data, status) {
-				          		//$scope.obtener() // no funciona ni con esto :( la ultima opcion es refreshear lapagina.
 				          });
 					}
 				);
