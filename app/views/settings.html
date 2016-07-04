@@ -11,11 +11,12 @@
 	<md-dialog-content>
 		<div class="md-dialog-content">
 			<form ng-submit="$event.preventDefault()" name="searchForm">
-				<p>Preferencia de eventos.</p>
+				<span flex>Preferencia de eventos.</span>
 				<md-list-item ng-repeat="tipo in tipos">
-					<md-checkbox ng-model="credentials.box" aria-label="tipo.tipoEvento" class="md-primary md-align-top-left" flex></md-checkbox>{{tipo.tipoEvento}}<br/>
-            		</md-list-item>
-				<p>Cambiar contraseña</p>
+					<md-checkbox ng-model="credentials.box" aria-label="tipo.tipoEvento" class="md-primary md-align-top-left"></md-checkbox>{{tipo.tipoEvento}}<br/>
+           		</md-list-item>
+           		<hr/>
+				<span>Cambiar contraseña</span>
 				<md-input-container flex class="md-block">
 					<label>Contraseña antigua</label>
 					<input type="password" ng-model="credentials.oldpassword">
@@ -37,7 +38,10 @@
 	</md-dialog-content>
 	<md-dialog-actions layout="row">
 		<span flex></span>
-		<md-button type="submit" ng-click="answer(credentials)">
+		<md-button type="submit" ng-click="disable()" style="color:#FFF;background-color:#900">
+			Deshabilitar Cuenta
+		</md-button>
+		<md-button type="submit" ng-click="edit()" style="color:#FFF;background-color:#090">
 			Ingresar
 		</md-button>
 	</md-dialog-actions>
