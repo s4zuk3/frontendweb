@@ -11,8 +11,32 @@
 	<md-dialog-content>
 		<div class="md-dialog-content">
 			<form ng-submit="$event.preventDefault()" name="searchForm">
+				<p>Actualizar Información Personal</p>
+				<md-input-container flex class="md-block">
+					<label>Correo</label>
+					<input ng-model="usuario.correoUsuario" type="email" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Contraseña</label>
+					<input ng-model="usuario.contrasenhaUsuario" type="password" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Nombre</label>
+					<input ng-model="usuario.nombreUsuario" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Apellido</label>
+					<input ng-model="usuario.apellidoUsuario" required>
+				</md-input-container>
+				<md-input-container flex class="md-block">
+					<label>Carrera</label>
+					<input ng-model="usuario.carreraUsuario" required>
+					<input type="hidden" ng-model="usuario.administrador">
+					<input type="hidden" ng-model="usuario.idTipoEstado">
+					<input type="hidden" ng-model="usuario.idUsuario">
+				</md-input-container>
 				<span flex>Preferencia de eventos.</span>
-				<fieldset class="standard">
+           		<fieldset class="standard">
 					<div ng-repeat="tipo in tipos" flex>
 						<md-checkbox ng-model="pref_user[$index]" md-no-ink aria-label="tipo.tipoEvento" class="md-primary">{{tipo.tipoEvento}}</md-checkbox>
 					</div>
@@ -29,8 +53,8 @@
 		<md-button type="submit" ng-click="deshabilitar()" style="color:#FFF;background-color:#C00">
 			Deshabilitar Cuenta
 		</md-button>
-		<md-button type="submit" ng-click="edit(prefiere)" style="color:#FFF;background-color:#0B0">
-			Ingresar
+		<md-button type="submit" ng-click="edit(prefiere,usuario)" style="color:#FFF;background-color:#0B0">
+			Actualizar
 		</md-button>
 	</md-dialog-actions>
 </md-dialog>

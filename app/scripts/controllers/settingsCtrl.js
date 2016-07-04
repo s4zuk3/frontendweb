@@ -1,9 +1,19 @@
 EventosUsach.controller('settingsController', function($scope,$http,$location,$templateCache,$window,$rootScope,$mdDialog, $mdMedia,$mdToast) {
 	auth = $rootScope.auth;
 	session = $rootScope.session;
-	$scope.pref_user = [];			
+	$scope.pref_user = [];
+	$scope.usuario={};
 	$scope.alert = function(t){$window.alert(t);}
 	$scope.obtener = function(){
+		$scope.usuario.correoUsuario=session.getUser().correoUsuario;
+		$scope.usuario.contrasenhaUsuario=session.getUser().contrasenhaUsuario;
+		$scope.usuario.nombreUsuario=session.getUser().nombreUsuario;
+		$scope.usuario.apellidoUsuario=session.getUser().apellidoUsuario;
+		$scope.usuario.carreraUsuario=session.getUser().carreraUsuario;
+		$scope.usuario.administrador=session.getUser().administrador;
+		$scope.usuario.idTipoEstado=session.getUser().idTipoEstado;
+		$scope.usuario.idUsuario=session.getUser().idUsuario;
+
 		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(
 			//success:
 			function(response){
@@ -153,7 +163,7 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 		return $scope.usuarios[idx].idTipoEstado==1;
 	}
 
-	$scope.edit = function(prefs){
+	$scope.edit = function(prefs,usrData){
 		// borro todas las preferencias anteriores del usuario, y luego inserto las nuevas
 		i=0;
 		while(i<$scope.preferenciasDelUsuario.length){
@@ -179,7 +189,13 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 				);				
 			}
 		}
-    	$mdDialog.cancel();
+		// finalmente actualizo los datos
+		$http.put("http://localhost:8080/EventoUsachJava/usuarios/"+session.getUser().idUsuario, usrData)
+		.success(function(data, status) {
+
+		});
+        session.setUser(usrData);
+       	$mdDialog.cancel();
     	$location.path($location.path()+"/");
 		$mdToast.show($mdToast.simple().textContent('Preferencias Actualizadas.').hideDelay(1500).position('bottom left'));
 	}
