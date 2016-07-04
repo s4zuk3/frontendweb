@@ -401,4 +401,56 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
           });
           $mdDialog.hide();	
 	};
+
+	$scope.deshabilitar = function(){
+		var id_user = $rootScope.session.getUser().idUsuario;
+		var flag = 2; // flag para desabilitar
+		var url_edit = "http://localhost:8080/EventoUsachJava/usuarios/"+id_user;
+				  
+		$http.get(url_edit).then(
+					//success:
+					function(response){
+						var user = response.data;
+						var edit_user = {};
+						edit_user.administrador = user.administrador;
+						edit_user.apellidoUsuario = user.apellidoUsuario;
+						edit_user.carreraUsuario = user.carreraUsuario;
+						edit_user.contrasenhaUsuario = user.contrasenhaUsuario;
+						edit_user.correoUsuario = user.correoUsuario;
+						edit_user.idUsuario = user.idUsuario;
+						edit_user.nombreUsuario = user.nombreUsuario;
+						edit_user.idTipoEstado = flag;
+						alert(JSON.stringify(edit_user));
+						  $http.put(url_edit, edit_user)
+				          .success(function(data, status) {
+				          		//$scope.obtener() // no funciona ni con esto :( la ultima opcion es refreshear lapagina.
+				          });
+					}
+				);
+	}
+	$scope.habilitar = function(id_user){
+		var flag = 1; // flag para desabilitar
+		var url_edit = "http://localhost:8080/EventoUsachJava/usuarios/"+id_user;
+				  
+		$http.get(url_edit).then(
+					//success:
+					function(response){
+						var user = response.data;
+						var edit_user = {};
+						edit_user.administrador = user.administrador;
+						edit_user.apellidoUsuario = user.apellidoUsuario;
+						edit_user.carreraUsuario = user.carreraUsuario;
+						edit_user.contrasenhaUsuario = user.contrasenhaUsuario;
+						edit_user.correoUsuario = user.correoUsuario;
+						edit_user.idUsuario = user.idUsuario;
+						edit_user.nombreUsuario = user.nombreUsuario;
+						edit_user.idTipoEstado = flag;
+						alert(JSON.stringify(edit_user));
+						  $http.put(url_edit, edit_user)
+				          .success(function(data, status) {
+				          		//$scope.obtener() // no funciona ni con esto :( la ultima opcion es refreshear lapagina.
+				          });
+					}
+				);
+	}
 }); 
