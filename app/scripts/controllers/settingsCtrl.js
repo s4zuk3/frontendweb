@@ -153,7 +153,7 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 		return $scope.usuarios[idx].idTipoEstado==1;
 	}
 
-	$scope.edit = function(prefs,pss){
+	$scope.edit = function(prefs){
 		// borro todas las preferencias anteriores del usuario, y luego inserto las nuevas
 		i=0;
 		while(i<$scope.preferenciasDelUsuario.length){
@@ -180,6 +180,7 @@ EventosUsach.controller('settingsController', function($scope,$http,$location,$t
 			}
 		}
     	$mdDialog.cancel();
+    	$location.path($location.path()+"/");
 	}
 
 	$scope.cancel = function() {

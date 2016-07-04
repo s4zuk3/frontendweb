@@ -17,20 +17,6 @@
 						<md-checkbox ng-model="pref_user[$index]" md-no-ink aria-label="tipo.tipoEvento" class="md-primary">{{tipo.tipoEvento}}</md-checkbox>
 					</div>
            		</fieldset>
-           		<hr/>
-				<span>Cambiar contraseña</span>
-				<md-input-container flex class="md-block">
-					<label>Contraseña antigua</label>
-					<input type="password" ng-model="pss.oldpassword">
-				</md-input-container>
-				<md-input-container flex class="md-block">
-					<label>Nueva contraseña</label>
-					<input type="password" ng-model="pss.newpassword">
-				</md-input-container>
-				<md-input-container flex class="md-block">
-					<label>Repetir nueva contraseña</label>
-					<input type="password" ng-model="pss.newpasswordrep">
-				</md-input-container>
 			</form>
 			<div class="alert alert-danger" role="alert" ng-show="credentials.error">
 				<span class="glyphicon glyphicon-exclamation-sign"></span>
@@ -43,7 +29,7 @@
 		<md-button type="submit" ng-click="deshabilitar()" style="color:#FFF;background-color:#900">
 			Deshabilitar Cuenta
 		</md-button>
-		<md-button type="submit" ng-click="edit(prefiere,pss)" style="color:#FFF;background-color:#090">
+		<md-button type="submit" ng-click="edit(prefiere)" style="color:#FFF;background-color:#090">
 			Ingresar
 		</md-button>
 	</md-dialog-actions>

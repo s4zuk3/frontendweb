@@ -4,6 +4,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 	$scope.editevent = {}
 	hoy = new Date();
 	$scope.alert = function(t){$window.alert(t);}
+	$scope.stringify = function(o){alert(JSON.stringify(o));}
 	$scope.obtener = function(){
 		$http.get('http://localhost:8080/EventoUsachJava/tipos').then(
 			//success:
@@ -39,6 +40,7 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 									$scope.eventos[i].fechaEvento = eventos[i].fechaEvento;
 									$scope.eventos[i].titulo = eventos[i].tituloEvento;
 									$scope.eventos[i].descripcion = eventos[i].descripcionEvento;
+									$scope.eventos[i].idx=999;
 									$scope.eventos[evento].id=i++;
 
 								}
@@ -46,6 +48,22 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 									$http.get('http://localhost:8080/EventoUsachJava/eventosusuarios').then(
 										//success:
 										function(response){
+											$http.get('http://localhost:8080/EventoUsachJava/preferencias').then(
+												function(response){
+													var preferencias = response.data;
+													i=0;
+													for(e in preferencias){
+														if(preferencias[i].idUsuario==session.getUser().idUsuario){
+															j=0;
+															for(ev in $scope.eventos){
+																if($scope.eventos[j++].idTipo==preferencias[i].idTipo)
+																	$scope.eventos[j-1].idx=preferencias[i].idTipo;
+															}
+														};
+														i++;
+													}
+												}
+											);
 											eventosUsuario=response.data;
 											$scope.eventosUsuario=[];
 											var even = [];
@@ -174,11 +192,28 @@ EventosUsach.controller('EventosController', function($scope,$http,$location,$te
 													event.fechaEvento = eventos[i].fechaEvento;
 													event.titulo = eventos[i].tituloEvento;
 													event.descripcion = eventos[i].descripcionEvento;
+													event.idx=999;
 													event.id=j++;
 													i++;
 													$scope.eventos.push(event);													
 												}else{i++;}
 											}
+											$http.get('http://localhost:8080/EventoUsachJava/preferencias').then(
+												function(response){
+													i=0;
+													for(e in response.data){
+														if(response.data[i].idUsuario==session.getUser().idUsuario){
+															j=0;
+															for(ev in $scope.eventos){
+																if($scope.eventos[j++].idTipo==response.data[i].idTipo)
+																	$scope.eventos[j-1].idx=response.data[i].idTipo;
+															}
+														};
+													i++;
+													}
+												}
+											);
+
 										},
 										//failure:
 										function(response){
